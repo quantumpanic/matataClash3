@@ -12,17 +12,26 @@ public class CampScript : MonoBehaviour {
 
 
 	//Tar buang
-	public Text tex;
+	public Text capacityText;
 	string a;
 
 	void Start () {
 		availableSlot = maxTroops;
+
+		capacityText = gameObject.transform.GetChild(1).GetChild(0).GetComponent<Text>();
 		
 	}
 	//Tar buang
 	void Update(){
-		a = TroopsManager.Instance.troops.Count.ToString();
-		tex.text = a;
+		a = "Army Camp ("+TroopsManager.Instance.troops.Count.ToString()+"/"+maxTroops+")";
+		capacityText.text = a;
+
+		if (!gameObject.GetComponent<BuildingScript>().isBuilding && !gameObject.GetComponent<BuildingScript>().isUpgrading &&  
+				(inputManager.Instance.selectedEntity.avatar == gameObject) && !inputManager.Instance.selectedEntity.isBlueprint) {
+			capacityText.gameObject.SetActive(true);
+		} else {
+			capacityText.gameObject.SetActive(false);
+		}
 	}
 	
 	public void addTroops (){

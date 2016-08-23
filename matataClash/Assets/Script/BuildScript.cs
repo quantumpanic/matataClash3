@@ -16,11 +16,12 @@ public class BuildScript : MonoBehaviour
     GameObject nextBuilding;
     GameObject confirmUI;
 
-    // Use this for initialization
-    void Start()
+    public static BuildScript Instance; 
+    void Awake()
     {
-        //buildingList = new List <GameObject>();
+        if (!Instance) Instance = this;
     }
+
 
     public void Build(string buildingName)
     {
@@ -97,11 +98,12 @@ public class BuildScript : MonoBehaviour
         }
     }
 
-    void SetEntityAvatar(GridEntity ge, GameObject go)
+    public void SetEntityAvatar(GridEntity ge, GameObject go)
     {
         ge.avatar = go;
-        ge.CenterAvatar();
         inputManager.Instance.selectedEntity = ge;
+
+        go.GetComponent<BuildingScript>().entity = ge;
     }
 
     void SetConfirmButton()
@@ -124,7 +126,7 @@ public class BuildScript : MonoBehaviour
         confirmUI.SetActive(false);
         nextBuilding.GetComponent<BuildingScript>().Build();
         GameManagerScript.Instance.SetWorker(-1);
-
+        BuildingManager.Instance.addBuilding(nextBuilding);
         nextBuilding = null;
     }
 

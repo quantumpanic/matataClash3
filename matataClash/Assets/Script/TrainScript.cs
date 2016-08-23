@@ -9,17 +9,16 @@ public class TrainScript : MonoBehaviour {
     int footmanCost = 10;
     public GameObject camp;
 
-    void Start(){
-      //  Train();
+    void Awake(){
+        trainUI = this.transform.GetChild(0).GetChild(2);
+        Button closeButton = trainUI.transform.GetChild(0).GetComponent<Button>();
+        closeButton.onClick.AddListener(() => CloseTrainPanel());
+        Button trainFootmanButton = trainUI.transform.GetChild(1).GetComponent<Button>();
+        trainFootmanButton.onClick.AddListener(() => TrainFootman());
     }
 
-    public void Train() {
-		//trainUI = (GameObject)Instantiate(trainUIPrefab, Vector3.zero, Quaternion.identity);
-        trainUI = this.transform.GetChild(0).GetChild(2);
-        trainUI.gameObject.SetActive(true);
-
-        Button trainFootmanButton = trainUI.transform.GetChild(0).GetComponent<Button>();
-        trainFootmanButton.onClick.AddListener(() => TrainFootman());
+    public void Train() {        
+        trainUI.gameObject.SetActive(true);        
 	}
 
     void TrainFootman(){
@@ -35,6 +34,10 @@ public class TrainScript : MonoBehaviour {
             print("not enough mana");
         }
        
+    }
+
+    void CloseTrainPanel() {
+        trainUI.gameObject.SetActive(false);
     }
 /*
     void TrainFootman(){
