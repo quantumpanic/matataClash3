@@ -15,11 +15,16 @@ public class BuildingScript : MonoBehaviour {
 	[SerializeField]
 	float timeLeft;
 	public bool isBuilding;
-	bool isUpgrading;
+	public bool isUpgrading;
 	string minutes;
 	string seconds;
 	public int resourceNeeded;
 	public int buildingType;
+	public bool isBuiltBeforeStart;
+	public int size;
+	public int xPos;
+	public int yPos;
+	public GridEntity entity;
 
 	// Use this for initialization
 	void Awake () {
@@ -29,12 +34,23 @@ public class BuildingScript : MonoBehaviour {
 
 		uiCanvas = transform.GetChild(0).gameObject;
 	}
+
+	void Start () {
+		if (isBuiltBeforeStart) {
+			var ge = gridScript.Instance.MakeEntity(size, size, xPos, yPos);
+			BuildScript.Instance.SetEntityAvatar(ge, gameObject);
+			BuildingManager.Instance.addBuilding(gameObject);
+		}
+	}
 	
 	// Update is called once per frame
 	void Update () {
 		//not building and  selected
 		if (!isBuilding && (inputManager.Instance.selectedEntity.avatar == gameObject) && !inputManager.Instance.selectedEntity.isBlueprint ) {
 			uiCanvas.gameObject.SetActive (true);
+		} else
+		{
+			uiCanvas.gameObject.SetActive (false);
 		}
 
 		if (isBuilding) {
@@ -62,6 +78,9 @@ public class BuildingScript : MonoBehaviour {
 				GameManagerScript.Instance.SetWorker (1);
 				isUpgrading = false;
 				print ("upgraded to "+level);
+
+
+				/////
 			}
 		}
 	}
