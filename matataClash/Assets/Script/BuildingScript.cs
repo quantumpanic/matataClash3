@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using UnityEngine.UI;
+using System.Collections.Generic;
 
 public class BuildingScript : MonoBehaviour {
 
@@ -25,6 +26,8 @@ public class BuildingScript : MonoBehaviour {
 	public int xPos;
 	public int yPos;
 	public GridEntity entity;
+
+
 
 	// Use this for initialization
 	void Awake () {
@@ -59,12 +62,13 @@ public class BuildingScript : MonoBehaviour {
 				upgradeTimeText.gameObject.SetActive (false);
 				GameManagerScript.Instance.SetWorker (1);
 				isBuilding= false;
-				//Kalau Res Col
-				if (this.GetComponent<ResourceCollectorScript> ())
-					this.GetComponent<ResourceCollectorScript> ().ProduceResources ();
-				//Kalau Camp
+
+				if (this.GetComponent<ResourceCollectorScript>())
+					this.GetComponent<ResourceCollectorScript>().ProduceResources();
 				if (this.GetComponent<CampScript> ())
 					TroopsManager.Instance.addCamp(this.gameObject);
+				if (this.GetComponent<WallScript> ())
+					this.GetComponent<WallScript> ().CheckNeighbor();
 			}
 
 		}
@@ -80,15 +84,11 @@ public class BuildingScript : MonoBehaviour {
 				print ("upgraded to "+level);
 
 
-				/////
 			}
 		}
 	}
 
-	void OnMouseDown () {
-		Cursor.Instance.selectedObject = this.gameObject;
-		print (Cursor.Instance.selectedObject.name);
-	}
+	
 
 	public void Upgrade () {
 		if (!isUpgrading && GameManagerScript.Instance.GetWorker () > 0) {
@@ -107,6 +107,21 @@ public class BuildingScript : MonoBehaviour {
 	public void Build () {
 		timeLeft = buildTime;
 		isBuilding = true;
+	}
+
+	public void Build (string name, int category) {
+		timeLeft = buildTime;
+		isBuilding = true;
+
+		switch (category) {
+			case 1:
+				foreach(ArmyBuilding a in DataReader.Instance.armyBuildingList){
+					if(a.name.Equals(name) & (a.level == 1)){
+
+					}
+				}
+				break;
+		}
 	}
 
 	void SetTime (string status) {
@@ -128,3 +143,34 @@ public class BuildingScript : MonoBehaviour {
 
 }
 
+public interface IBaseBuilding {
+	int unitType {get;set;}
+	string name {get;set;}
+	int level {get;set;}
+	int hitpoint {get;set;}
+	int buildCost {get;set;}
+	int buildTime {get;set;}
+	int experienceGained {get;set;}
+	int townHallLevelRequired {get;set;}
+	int townHallLevel {get;set;}
+	int numberAvailable {get;set;}
+	int size {get;set;}
+	string description {get;set;}
+}
+
+public interface IArmyBuilding : IBaseBuilding {
+	int troopCapacity {get;set;}
+}
+
+public interface IDefenseBuilding : IBaseBuilding{
+	int ww {get;set;}
+}
+
+public interface IResourceBuilding : IBaseBuilding {
+	int boostCost{get;set;}
+	int capacity{get;set;}
+	int productionRate{get;set;}
+	long timeToFill{get;set;}
+	int catchUpPoint{get;set;}
+
+}

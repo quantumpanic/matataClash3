@@ -1,0 +1,15 @@
+{
+  "unitType": 1,
+  "name": "ArmyCamp",
+  "level": 1,
+  "hitpoint": 250,
+  "buildCost": 250,
+  "buildTime": 300,
+  "experienceGained": 17,
+  "townHallLevelRequired": 1,
+  "townHallLevel": 1,
+  "numberAvailable": 1,
+  "size": 5,
+  "description": "Army Camp",
+  "troopCapacity": 20
+}

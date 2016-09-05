@@ -1,4 +1,4 @@
 sceneSetups:
-- path: Assets/mbal/mbalScene.unity
+- path: Assets/EkaScene2.unity
   isLoaded: 1
   isActive: 1

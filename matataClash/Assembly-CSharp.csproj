@@ -48,13 +48,13 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+     <Compile Include="Assets\Script\Battle\DefenderEnvironment.cs" />
      <Compile Include="Assets\Script\Battle\Spawn.cs" />
      <Compile Include="Assets\Script\BuildScript.cs" />
-     <Compile Include="Assets\Script\BuildingBaseScript.cs" />
      <Compile Include="Assets\Script\BuildingManager.cs" />
      <Compile Include="Assets\Script\BuildingScript.cs" />
      <Compile Include="Assets\Script\CampScript.cs" />
-     <Compile Include="Assets\Script\Cursor.cs" />
+     <Compile Include="Assets\Script\DataReader.cs" />
      <Compile Include="Assets\Script\GameManagerScript.cs" />
      <Compile Include="Assets\Script\ResourceCollectorScript.cs" />
      <Compile Include="Assets\Script\ResourceDisplayScript.cs" />
@@ -67,6 +67,7 @@
      <Compile Include="Assets\mbal\inputManager.cs" />
      <Compile Include="Assets\mbal\inputReceiver.cs" />
      <None Include="Assets\RAIN\Editor\Shaders\AspectSphereShader.shader" />
+     <None Include="Assets\AI\BehaviorTrees\1.xml" />
      <None Include="Assets\RAIN\Editor\Shaders\VisualSensorLineShader.shader" />
      <None Include="Assets\RAIN\Editor\Shaders\NavMeshContourShader.shader" />
      <None Include="Assets\RAIN\Editor\Shaders\WaypointShader.shader" />

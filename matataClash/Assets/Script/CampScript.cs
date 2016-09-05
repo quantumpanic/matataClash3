@@ -6,10 +6,9 @@ using UnityEngine.UI;
 public class CampScript : MonoBehaviour {
 
 	// Use this for initialization
-	//public List<int> troops = new List<int>();
+	public List<int> campedTroops = new List<int>();
 	int maxTroops = 5;
 	int availableSlot;
-
 
 	//Tar buang
 	public Text capacityText;
@@ -23,7 +22,9 @@ public class CampScript : MonoBehaviour {
 	}
 	//Tar buang
 	void Update(){
-		a = "Army Camp ("+TroopsManager.Instance.troops.Count.ToString()+"/"+maxTroops+")";
+		//a = "Army Camp ("+TroopsManager.Instance.troops.Count.ToString()+"/"+maxTroops+")";
+		availableSlot = maxTroops - campedTroops.Count;
+		a = "Army Camp ("+campedTroops.Count.ToString()+"/"+maxTroops+")";
 		capacityText.text = a;
 
 		if (!gameObject.GetComponent<BuildingScript>().isBuilding && !gameObject.GetComponent<BuildingScript>().isUpgrading &&  
@@ -34,9 +35,9 @@ public class CampScript : MonoBehaviour {
 		}
 	}
 	
-	public void addTroops (){
-		//troops.Add(a);
-		availableSlot--;
+	public void addTroops (int a){
+		campedTroops.Add(a);
+		//availableSlot--;
 	}
 
 	public bool isCampFull () {

@@ -24,6 +24,8 @@ private static TroopsManager instance = null;
 		campList.Add(newCamp);
 		availableCampSlot += newCamp.GetComponent<CampScript>().getAvailableSlot();
 		Debug.Log(availableCampSlot);
+
+		troops.AddRange(newCamp.GetComponent<CampScript>().campedTroops);
 	}
 
 	public void addTroops (int a) {
@@ -33,7 +35,9 @@ private static TroopsManager instance = null;
 			foreach (GameObject camp in campList) {
 				if (!camp.GetComponent<CampScript>().isCampFull()){
 					//troops masukan ke camp
-					camp.GetComponent<CampScript>().addTroops();
+					camp.GetComponent<CampScript>().addTroops(a);
+
+					Debug.Log("ss");
 					break;
 				}
 			}

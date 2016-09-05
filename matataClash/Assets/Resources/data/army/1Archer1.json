@@ -1,0 +1,21 @@
+{
+  "unitType": 1,
+  "name": "Archer",
+  "level": 1,
+  "hitpoint": 20,
+  "trainingCost": 50,
+  "trainingTime": 25,
+  "researchCost": 0,
+  "researchTime": 0,
+  "damagePerSecond": 7,
+  "damagePerAttack": 7,
+  "preferredTarget": 0,
+  "attackType": 0,
+  "movementSpeed": 24,
+  "attackSpeed": 1,
+  "range": 3.5,
+  "description": "Archer",
+  "laboratoryLevelRequired": 0,
+  "housingSpace": 1,
+  "barracksLevelRequired": 2
+}

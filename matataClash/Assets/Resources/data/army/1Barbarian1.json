@@ -1,0 +1,21 @@
+{
+  "unitType": 1,
+  "name": "Barbarian",
+  "level": 1,
+  "hitpoint": 45,
+  "trainingCost": 25,
+  "trainingTime": 20,
+  "researchCost": 0,
+  "researchTime": 0,
+  "damagePerSecond": 8,
+  "damagePerAttack": 8,
+  "preferredTarget": 0,
+  "attackType": 1,
+  "movementSpeed": 16,
+  "attackSpeed": 1,
+  "range": 0.4,
+  "description": "Barbarian",
+  "laboratoryLevelRequired": 0,
+  "housingSpace": 1,
+  "barracksLevelRequired": 1
+}

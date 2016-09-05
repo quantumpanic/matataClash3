@@ -1,0 +1,19 @@
+{
+  "unitType": 1,
+  "name": "Cannon",
+  "level": 1,
+  "hitpoint": 420,
+  "buildCost": 250,
+  "buildTime": 10,
+  "experienceGained": 3,
+  "townHallLevelRequired": 1,
+  "townHallLevel": 1,
+  "numberAvailable": 2,
+  "size": 3,
+  "description": "Cannon",
+  "damagePerSecond": 9,
+  "range": 9,
+  "attackSpeed": 0.8,
+  "damageType": 0,
+  "unitTypeTargeted": 0
+}
