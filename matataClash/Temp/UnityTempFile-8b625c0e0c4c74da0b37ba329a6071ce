@@ -73,6 +73,7 @@
 -define:UNITY_EDITOR
 -define:UNITY_EDITOR_64
 -define:UNITY_EDITOR_OSX
+-define:UNITY_TEAM_LICENSE
 -r:'/Applications/Unity/Unity.app/Contents/Frameworks/Managed/UnityEngine.dll'
 -r:'/Applications/Unity/Unity.app/Contents/Frameworks/Managed/UnityEditor.dll'
 -r:'Library/ScriptAssemblies/Assembly-CSharp.dll'
@@ -89,10 +90,8 @@
 -r:'Assets/RAIN/Editor/RAINEditor.dll'
 -r:'Assets/RAIN/Editor/RAINMetaformEditor.dll'
 -r:'/Applications/Unity/Unity.app/Contents/Frameworks/Managed/UnityEditor.Graphs.dll'
--r:'/Applications/Unity/PlaybackEngines/iOSSupport/UnityEditor.iOS.Extensions.dll'
+-r:'/Applications/Unity/PlaybackEngines/AndroidPlayer/UnityEditor.Android.Extensions.dll'
 -r:'/Applications/Unity/PlaybackEngines/MacStandaloneSupport/UnityEditor.OSXStandalone.Extensions.dll'
--r:'/Applications/Unity/PlaybackEngines/iOSSupport/UnityEditor.iOS.Extensions.Xcode.dll'
--r:'/Applications/Unity/PlaybackEngines/iOSSupport/UnityEditor.iOS.Extensions.Common.dll'
 -i:UnityEditor
 'Assets/RAIN/Editor/ScriptTemplates/ActionTemplate_JS.js'
 'Assets/RAIN/Editor/ScriptTemplates/DecisionTemplate_JS.js'
