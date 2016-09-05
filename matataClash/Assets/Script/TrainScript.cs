@@ -25,6 +25,7 @@ public class TrainScript : MonoBehaviour {
         if (GameManagerScript.Instance.GetMana() >= footmanCost){
             if (TroopsManager.Instance.isAllCampFull()){
                 print("camp is full");
+                TextAnimManager.Instance.WarningCampFull();
             } else {
                 print("train 1 footman");
                 TroopsManager.Instance.addTroops(1);
@@ -32,6 +33,7 @@ public class TrainScript : MonoBehaviour {
             }
         }else{
             print("not enough mana");
+            TextAnimManager.Instance.WarningNoMana();
         }
        
     }

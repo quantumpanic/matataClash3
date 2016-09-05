@@ -32,6 +32,7 @@ public abstract class TouchInputReceiver : MonoBehaviour, IClickable
     public virtual void OnPress()
     {
         //GetComponent<Renderer>().material.color = Color.green;
+        CombatManager.Instance.DeployTroop(GetComponent<GridObject>());
     }
 
     public virtual void OnClick()

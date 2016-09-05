@@ -75,6 +75,7 @@ public class BuildScript : MonoBehaviour
             SetConfirmButton();
         } else
             print("No worker available");
+            TextAnimManager.Instance.WarningNoWorker();
     }
 
 

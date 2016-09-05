@@ -15,7 +15,7 @@ public class DefenderEnvironment : MonoBehaviour {
     {
         NavMeshRig rig = GetComponent<NavMeshRig>();
 		rig.NavMesh.UnregisterNavigationGraph();
-		rig.NavMesh.StartCreatingContours(rig, 4);
+		rig.NavMesh.StartCreatingContours(4);
 		while (rig.NavMesh.Creating){
 			rig.NavMesh.CreateContours();
 			Thread.Sleep(10);
