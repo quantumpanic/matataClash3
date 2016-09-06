@@ -1,5 +1,5 @@
 ﻿using UnityEngine;
-using System;
+using System.Collections;
 using System.Collections.Generic;
 
 public class gridScript : MonoBehaviour
@@ -26,6 +26,8 @@ public class gridScript : MonoBehaviour
 
         InitNodes();
         InitTiles();
+
+
     }
 
     void InitNodes()
@@ -222,7 +224,8 @@ public abstract class GridAbstract : MonoBehaviour, ISnappable, IArrangeable
     {
         if (gridChild)
         {
-            Destroy(gridChild);
+            //Destroy(gridChild);
+            PoolManager.Instance.ReturnToPool(gridChild);
             gridChild = null;
         }
     }
@@ -247,13 +250,13 @@ public abstract class GridAbstract : MonoBehaviour, ISnappable, IArrangeable
         if (blueprint)
         {
             gridBlueprint = go;
-            go.transform.position = transform.position;
+            //go.transform.position = transform.position;
             //go.GetComponent<Renderer>().material.color = Color.red;
         }
         else
         {
             gridChild = go;
-            go.transform.position = transform.position;
+            //go.transform.position = transform.position;
             //go.GetComponent<Renderer>().material.color = Color.gray;
         }
     }
@@ -475,6 +478,7 @@ public class GridEntity : MonoBehaviour, IArrangeable, IDimensions
         return false;
     }
 
+    public bool gridPosChanged = false;
 
     public bool ParallelMoveOnGrid(GridObject start, GridObject target)
     {
@@ -497,6 +501,9 @@ public class GridEntity : MonoBehaviour, IArrangeable, IDimensions
 
         if (canMove)
         {
+            gridPosChanged = false;
+            if (Index != target.Index) gridPosChanged = true;
+
             Index = target.Index;
             RespawnAnchors();
             return true;
@@ -581,17 +588,26 @@ public class GridEntity : MonoBehaviour, IArrangeable, IDimensions
             for (int c = 0; c < Columns; c++)
             {
                 GridObject g = gridScript.Instance.TileLookup(MainAnchor, c, r);
-                g.GiveChild((GameObject)Instantiate(gridScript.Instance.tileObj, Vector3.zero, Quaternion.identity));
+                //g.GiveChild((GameObject)Instantiate(gridScript.Instance.tileObj, Vector3.zero, Quaternion.identity));
+                g.GiveChild(PoolManager.Instance.GetFromPool());
                 g.entity = gameObject;
                 // except MainAnchor
                 if (g != MainAnchor) anchors.Add(g);
-
+#if UNITY_EDITOR
                 //parent
                 g.gridChild.transform.parent = g.entity.transform;
+#endif
             }
         }
 
         gridScript.Instance.UpdateGridCursor();
+        if (gridPosChanged) StartCoroutine(LateGenerateNavMesh());
+    }
+
+    IEnumerator LateGenerateNavMesh()
+    {
+        yield return new WaitForEndOfFrame();
+        DefenderEnvironment.Instance.GenerateNavmesh();
     }
 
     public void DeactivateAnchors(bool isBlueprint = false)

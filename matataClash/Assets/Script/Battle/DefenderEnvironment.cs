@@ -6,19 +6,26 @@ using System;
 
 public class DefenderEnvironment : MonoBehaviour {
 
+	public static DefenderEnvironment Instance;
+
+	void Awake()
+	{
+		if (!Instance) Instance = this;
+	}
+
 	// Use this for initialization
 	void Start () {
 		GenerateNavmesh();
 	}
 
-    private void GenerateNavmesh()
+    public void GenerateNavmesh()
     {
         NavMeshRig rig = GetComponent<NavMeshRig>();
 		rig.NavMesh.UnregisterNavigationGraph();
-		rig.NavMesh.StartCreatingContours(4);
+		rig.NavMesh.StartCreatingContours(1);
 		while (rig.NavMesh.Creating){
 			rig.NavMesh.CreateContours();
-			Thread.Sleep(10);
+			Thread.Sleep(60);
 		}
 		rig.NavMesh.RegisterNavigationGraph();
     }
