@@ -74,7 +74,7 @@ public class BuildScript : MonoBehaviour
             SetEntityAvatar(gridScript.Instance.MakeBlueprint(buildingSize, buildingSize), nextBuilding);
             SetConfirmButton();
         } else
-            print("No worker available");
+            //print("No worker available");
             TextAnimManager.Instance.WarningNoWorker();
     }
 
