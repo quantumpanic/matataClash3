@@ -96,7 +96,8 @@ public class BuildingScript : MonoBehaviour {
 			GameManagerScript.Instance.SetWorker (-1);
 			isUpgrading = true;
 		} else
-			print ("boo");
+			//print ("boo");
+            TextAnimManager.Instance.WarningNoWorker();
 
 
 

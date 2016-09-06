@@ -28,6 +28,7 @@ public class inputManager : MonoBehaviour
     public RaycastHit hit;
     public RaycastHit oldHit;
 
+
     void DraggingPhase(GridObject go)
     {
         GridObject g = oldHit.transform.GetComponent<GridObject>();
@@ -37,7 +38,10 @@ public class inputManager : MonoBehaviour
             BuildingScript bs = ge.avatar.GetComponent<BuildingScript>();
             if (ge == selectedEntity && bs & !bs.isBuilding)
             {
-                if (g.SnapTo(go)) oldHit = hit;
+                if (g.SnapTo(go))
+                {
+                    oldHit = hit;
+                }
                 else isDraggingPhase = false;
             }
         }
@@ -49,9 +53,9 @@ public class inputManager : MonoBehaviour
     public Transform hitTrans;
     public Transform oldHitTrans;
     RaycastHit firstHit;
-
     void Update()
     {
+
         hitTrans = hit.transform;
         oldHitTrans = oldHit.transform;
 
@@ -109,7 +113,7 @@ public class inputManager : MonoBehaviour
                 if (Input.GetMouseButtonUp(0))
                 {
                     isDraggingPhase = false;
-                    if (Vector3.Distance(firstHit.point,hit.point) < 0.1f)
+                    if (Vector3.Distance(firstHit.point, hit.point) < 0.1f)
                     {
                         clicked.OnClick();
                     }
@@ -118,6 +122,8 @@ public class inputManager : MonoBehaviour
                 // show building options when clicked
             }
         }
+
+
 #endif
 
         if (Input.touchCount > 0)
@@ -162,5 +168,6 @@ public class inputManager : MonoBehaviour
                 }
             }
         }
+
     }
 }

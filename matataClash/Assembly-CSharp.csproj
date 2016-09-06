@@ -63,6 +63,7 @@
      <Compile Include="Assets\Script\TroopsManager.cs" />
      <Compile Include="Assets\Script\WallScript.cs" />
      <Compile Include="Assets\mbal\CombatManager.cs" />
+     <Compile Include="Assets\mbal\PoolManager.cs" />
      <Compile Include="Assets\mbal\SceneManager.cs" />
      <Compile Include="Assets\mbal\TextAnim.cs" />
      <Compile Include="Assets\mbal\TextAnimManager.cs" />
