@@ -45,7 +45,7 @@ public class TextAnim : MonoBehaviour
             newColor = new Color(txtColor.r, txtColor.g, txtColor.b, Mathf.Lerp(component.color.a, 0, t));
             component.color = newColor;
             newPosY = Mathf.Lerp(offsetY, offsetY + moveDist, t);
-            print (offsetY + moveDist);
+//            print (offsetY + moveDist);
             component.rectTransform.anchoredPosition = new Vector2(component.rectTransform.anchoredPosition.x, newPosY);
             yield return null;
         }
