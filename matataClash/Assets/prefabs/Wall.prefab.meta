@@ -5,6 +5,7 @@ fileFormatVersion: 2
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 guid: a31e731212fcd4200ac3f10c50d7335f
 timeCreated: 1473232596
 =======
@@ -31,6 +32,10 @@ timeCreated: 1473232679
 guid: b93bb98f344b34f6fa4d823224e5e3dd
 timeCreated: 1471936885
 >>>>>>> parent of a8a0bbb... daily merge
+=======
+guid: 936c8cf615fa4422e85a840f3530116d
+timeCreated: 1473232679
+>>>>>>> master
 licenseType: Free
 NativeFormatImporter:
   userData: 
