@@ -48,7 +48,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-     <Compile Include="Assets\DetectionPriority.cs" />
      <Compile Include="Assets\Script\Battle\DefenderEnvironment.cs" />
      <Compile Include="Assets\Script\Battle\Spawn.cs" />
      <Compile Include="Assets\Script\BuildScript.cs" />
