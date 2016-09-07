@@ -27,7 +27,7 @@ public class CombatManager : MonoBehaviour
     public void ToggleDeployMode(UnityEngine.UI.Button button)
     {
         isDeployMode = !isDeployMode;
-        button.image.color = isDeployMode ? Color.red : new Color(255/255f, 245/255f, 210/255f);
+        button.image.color = isDeployMode ? Color.red : new Color(255 / 255f, 245 / 255f, 210 / 255f);
     }
 
     public GameObject combatUnit;
