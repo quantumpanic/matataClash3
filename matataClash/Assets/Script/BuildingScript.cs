@@ -97,11 +97,7 @@ public class BuildingScript : MonoBehaviour {
 			isUpgrading = true;
 		} else
 			//print ("boo");
-<<<<<<< HEAD
             TextAnimManager.Instance.WarningNoWorker();
-=======
-			TextAnimManager.Instance.WarningNoWorker();
->>>>>>> master
 
 
 
