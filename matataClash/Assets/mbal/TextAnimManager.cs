@@ -6,6 +6,7 @@ public class TextAnimManager : MonoBehaviour
 
     public static TextAnimManager Instance;
     public GameObject textAnimBase;
+    public Animator contentPanel;
 
     void Awake()
     {
@@ -73,5 +74,10 @@ public class TextAnimManager : MonoBehaviour
     public TextAnim WarningNoMana()
     {
         return SpawnStaticText(Vector2.zero, "Insufficient Mana!", 50, Color.red);
+    }
+
+    public void ToggleMenu() {
+        bool isHidden = contentPanel.GetBool("isHidden");
+        contentPanel.SetBool("isHidden", !isHidden);
     }
 }

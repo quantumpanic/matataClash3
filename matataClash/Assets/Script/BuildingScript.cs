@@ -25,6 +25,8 @@ public class BuildingScript : MonoBehaviour {
 	public int size;
 	public int xPos;
 	public int yPos;
+	public float maxHitpoint;
+	public float curHitpoint;
 	public GridEntity entity;
 
 
@@ -32,6 +34,7 @@ public class BuildingScript : MonoBehaviour {
 	// Use this for initialization
 	void Awake () {
 		level = 1;
+		curHitpoint = maxHitpoint;
 		isBuilding = false;
 		isUpgrading = false;
 
