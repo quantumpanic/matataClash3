@@ -51,6 +51,7 @@
      <Compile Include="Assets\Script\Battle\DefenderEnvironment.cs" />
      <Compile Include="Assets\Script\Battle\HPBar.cs" />
      <Compile Include="Assets\Script\Battle\Spawn.cs" />
+     <Compile Include="Assets\Script\Battle\TroopScript.cs" />
      <Compile Include="Assets\Script\BuildScript.cs" />
      <Compile Include="Assets\Script\BuildingManager.cs" />
      <Compile Include="Assets\Script\BuildingScript.cs" />
@@ -64,6 +65,7 @@
      <Compile Include="Assets\Script\TroopsManager.cs" />
      <Compile Include="Assets\Script\WallScript.cs" />
      <Compile Include="Assets\mbal\CombatManager.cs" />
+     <Compile Include="Assets\mbal\DetectionPriority.cs" />
      <Compile Include="Assets\mbal\PoolManager.cs" />
      <Compile Include="Assets\mbal\SceneManager.cs" />
      <Compile Include="Assets\mbal\TextAnim.cs" />
