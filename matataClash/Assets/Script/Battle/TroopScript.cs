@@ -27,6 +27,14 @@ public class TroopScript : MonoBehaviour, IDamager, IDamageable
             curHitpoint = value;
         }
     }
+     public GameObject body{
+        get{
+            return gameObject;
+        }
+        set{
+            
+        }
+    }
     public float baseDamage;
     public float baseDmg
     {

@@ -3,51 +3,6 @@ using System.Collections;
 using UnityEngine.UI;
 using System.Collections.Generic;
 
-<<<<<<< HEAD
-public class BuildingScript : MonoBehaviour {
-
-	//public Button upgradeButton;
-	public Text upgradeTimeText;
-	GameObject uiCanvas;
-
-	[SerializeField]
-	int level;
-	public float buildTime;
-	public float upgradeTime;
-	[SerializeField]
-	float timeLeft;
-	public bool isBuilding;
-	public bool isUpgrading;
-	string minutes;
-	string seconds;
-	public int resourceNeeded;
-	public int buildingType;
-	public bool isBuiltBeforeStart;
-	public int size;
-	public int xPos;
-	public int yPos;
-	public float maxHitpoint;
-	public float curHitpoint;
-	public GridEntity entity;
-
-
-
-	// Use this for initialization
-	void Awake () {
-		level = 1;
-		curHitpoint = maxHitpoint;
-		isBuilding = false;
-		isUpgrading = false;
-
-		uiCanvas = transform.GetChild(0).gameObject;
-	}
-
-	void Start () {
-		if (isBuiltBeforeStart) {
-			var ge = gridScript.Instance.MakeEntity(size, size, xPos, yPos);
-			BuildScript.Instance.SetEntityAvatar(ge, gameObject);
-			BuildingManager.Instance.addBuilding(gameObject);
-=======
 public class BuildingScript : MonoBehaviour, IDamageable
 {
 
@@ -83,7 +38,7 @@ public class BuildingScript : MonoBehaviour, IDamageable
         level = 1;
         isBuilding = false;
         isUpgrading = false;
-
+        curHitpoint = maxHitpoint;
         uiCanvas = transform.GetChild(0).gameObject;
 
         damageCalculator = new DamageCalculator(this);
@@ -93,7 +48,6 @@ public class BuildingScript : MonoBehaviour, IDamageable
     {
 		get{
 			return curHitpoint;
->>>>>>> origin/mbal2
 		}
         set
         {
@@ -111,6 +65,14 @@ public class BuildingScript : MonoBehaviour, IDamageable
         }
     }
 
+    public GameObject body{
+        get{
+            return gameObject;
+        }
+        set{
+            
+        }
+    }
     public DamageCalculator damageCalculator { get; set; }
 
     void Start()

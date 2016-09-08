@@ -59,6 +59,7 @@ public interface IDamageable
 {
     float curHP { get; set; }
     float maxHP { get; set; }
+    GameObject body { get; set; }
     DamageCalculator damageCalculator { get; set; }
 }
 
@@ -87,6 +88,7 @@ public class DamageCalculator
     public DamageCalculator(IDamageable creator)
     {
         entity = creator;
+        healthBar = entity.body.transform.GetChild(1).GetChild(1).gameObject;
     }
 
     public void SetHealthVisual(float health)
