@@ -38,4 +38,84 @@ public class CombatManager : MonoBehaviour
         GameObject go = (GameObject)Instantiate(combatUnit, point.transform.position, Quaternion.identity);
         return go;
     }
+
+    public void NewDamageEvent(DamageInstance dmg)
+    {
+        dmg.target.damageCalculator.ReceiveDamage(dmg);
+    }
+
+    public void NewDamageEvent(float dmg, IDamageable target)
+    {
+        target.damageCalculator.ReceiveDamage(dmg);
+    }
+
+    public void DamageReport(IDamageable target)
+    {
+        // confirm damage event worked correctly
+    }
+}
+
+public interface IDamageable
+{
+    float curHP { get; set; }
+    float maxHP { get; set; }
+    DamageCalculator damageCalculator { get; set; }
+}
+
+public interface IDamager
+{
+    float baseDmg { get; set; }
+    CombatManager combatManager { get; }
+}
+
+public class DamageInstance
+{
+    public IDamager owner;
+    public IDamageable target;
+    public DamageInstance(IDamager creator, IDamageable destination)
+    {
+        owner = creator;
+        target = destination;
+    }
+}
+
+public class DamageCalculator
+{
+    public IDamageable entity;
+    public GameObject healthBar;
+
+    public DamageCalculator(IDamageable creator)
+    {
+        entity = creator;
+    }
+
+    public void SetHealthVisual(float health)
+    {
+        if (!healthBar) return;
+        healthBar.transform.localScale = new Vector3(health, healthBar.transform.localScale.y, healthBar.transform.localScale.z);
+    }
+
+    public void ReceiveDamage(float dmg)
+    {
+        entity.curHP -= dmg;
+        if (entity.curHP >= 0)
+        {
+            float a = (float)entity.curHP / entity.maxHP;
+            SetHealthVisual(a);
+            // report dmg here
+        }
+    }
+
+    public void ReceiveDamage(DamageInstance dmgInst)
+    {
+        float dmg = dmgInst.owner.baseDmg;
+
+        entity.curHP -= dmg;
+        if (entity.curHP >= 0)
+        {
+            float a = (float)entity.curHP / entity.maxHP;
+            SetHealthVisual(a);
+            // report dmg here
+        }
+    }
 }
