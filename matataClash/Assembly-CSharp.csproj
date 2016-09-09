@@ -66,8 +66,10 @@
      <Compile Include="Assets\Script\WallScript.cs" />
      <Compile Include="Assets\mbal\CombatManager.cs" />
      <Compile Include="Assets\mbal\DetectionPriority.cs" />
+     <Compile Include="Assets\mbal\MapManager.cs" />
      <Compile Include="Assets\mbal\PoolManager.cs" />
      <Compile Include="Assets\mbal\SceneManager.cs" />
+     <Compile Include="Assets\mbal\ScriptableObjectUtility.cs" />
      <Compile Include="Assets\mbal\TextAnim.cs" />
      <Compile Include="Assets\mbal\TextAnimManager.cs" />
      <Compile Include="Assets\mbal\gridScript.cs" />

@@ -1,9 +1,10 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 public class SceneManager : MonoBehaviour
 {
-    static SceneManager Instance;
+    public static SceneManager Instance;
 
     void Awake()
     {
@@ -13,6 +14,35 @@ public class SceneManager : MonoBehaviour
     void Start()
     {
         // open first scene
+    }
+
+    public List<SceneItem> sceneList = new List<SceneItem>();
+    public SceneItem currentScene;
+    public SceneItem defaultScene;
+
+    public void GoToScene(string sceneName)
+    {
+        SceneItem chosenScene = defaultScene;
+        foreach (SceneItem si in sceneList)
+        {
+            if (si.mapName == sceneName)
+            {
+                chosenScene = si;
+                break;
+            }
+        }
+
+        if (chosenScene == currentScene) return;
+        else currentScene = chosenScene;
+
+        // load mapDataFile and open all panelsToOpen
+        MapManager.Instance.LoadMapLayout(chosenScene.mapDataFile);
+        FadeInPanels(chosenScene.panelsToOpen);
+    }
+
+    public void GoToScene(int index)
+    {
+
     }
 
     void FadeOutPanel(CanvasGroup cg, bool poof = false)
@@ -29,6 +59,22 @@ public class SceneManager : MonoBehaviour
         {
             if (c == cg) continue;
             if (cg.name == "transparent") FadePanel(c, false, true);
+            else FadeOutPanel(c);
+        }
+    }
+
+    public void FadeInPanels(List<CanvasGroup> cgs)
+    {
+        foreach (CanvasGroup cg in cgs)
+        {
+            FadePanel(cg, true);
+        }
+
+        // fade out others
+        foreach (CanvasGroup c in GetComponentsInChildren<CanvasGroup>())
+        {
+            if (cgs.Contains(c)) continue;
+            if (cgs.Find(x => x.name == "transparent")) FadePanel(c, false, true);
             else FadeOutPanel(c);
         }
     }
@@ -61,4 +107,13 @@ public class SceneManager : MonoBehaviour
             cg.gameObject.SetActive(false);
         }
     }
+}
+
+[System.Serializable]
+public class SceneItem
+{
+    public string mapName;
+    public List<CanvasGroup> panelsToOpen = new List<CanvasGroup>();
+    public bool isCombatMap;
+    public MapData mapDataFile;
 }

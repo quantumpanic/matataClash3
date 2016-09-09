@@ -93,6 +93,7 @@
 'Assets/Script/WallScript.cs'
 'Assets/mbal/CombatManager.cs'
 'Assets/mbal/DetectionPriority.cs'
+'Assets/mbal/MapManager.cs'
 'Assets/mbal/PoolManager.cs'
 'Assets/mbal/SceneManager.cs'
 'Assets/mbal/TextAnim.cs'
