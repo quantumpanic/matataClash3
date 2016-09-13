@@ -56,6 +56,7 @@ public class ResourceCollectorScript : MonoBehaviour
     public void CollectResources()
     {
         GameManagerScript.Instance.SetGold(resGathered);
+        TextAnimManager.Instance.SpawnAddGoldText(transform.position, resGathered.ToString());
         resGathered = 0;
         ProduceResources();
         collectButton.gameObject.SetActive(false);

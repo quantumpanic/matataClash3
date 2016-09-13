@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
-using UnityEditor;
+//using UnityEditor;
 
 public class MapManager : MonoBehaviour
 {
@@ -51,6 +51,7 @@ public class MapManager : MonoBehaviour
 
     public void ClearMap()
     {
+        return;
         List<MonoBehaviour> tempList = new List<MonoBehaviour>();
         foreach (GridEntity ge in gridScript.Instance.entities)
         {
@@ -60,39 +61,6 @@ public class MapManager : MonoBehaviour
 
         gridScript.Instance.entities.Clear();
         print("clear");
-    }
-}
-
-public class MapData : ScriptableObject
-{
-    // map where all entities are
-    public List<MapEntity> mapEntities = new List<MapEntity>();
-
-    [MenuItem("Assets/Create/New Map Data Asset")]
-    public static MapData CreateMapDataAsset()
-    {
-        MapData asset = ScriptableObject.CreateInstance<MapData>();
-
-        AssetDatabase.CreateAsset(asset, "Assets/mbal/MapData.asset");
-        AssetDatabase.SaveAssets();
-
-        EditorUtility.FocusProjectWindow();
-
-        Selection.activeObject = asset;
-
-        return asset;
-    }
-
-    [MenuItem("Assets/Create/Map Data From Scene")]
-    public static MapData CreateMapDataFromScene()
-    {
-        MapData md = CreateMapDataAsset();
-        foreach (GridEntity ge in gridScript.Instance.entities)
-        {
-            md.mapEntities.Add(MapEntity.CreateFromGrid(ge));
-        }
-
-        return md;
     }
 }
 

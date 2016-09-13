@@ -68,7 +68,8 @@ public class inputManager : MonoBehaviour
             isDraggingPhase = false;
         }
 
-#if UNITY_EDITOR
+#if UNITY_EDITOR || UNITY_STANDALONE
+        if (UnityEngine.EventSystems.EventSystem.current.IsPointerOverGameObject()) return;
         Ray ray1 = Camera.main.ScreenPointToRay(Input.mousePosition);
         // Debug.DrawRay(ray1.origin, ray1.direction, Color.yellow);
 
