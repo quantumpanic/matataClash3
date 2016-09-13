@@ -3,7 +3,7 @@ using System.Collections;
 using UnityEngine.UI;
 using System.Collections.Generic;
 
-public class BuildingScript : MonoBehaviour, IDamageable
+public class BuildingScript : MonoBehaviour, IDamageable, ITargettable
 {
 
     //public Button upgradeButton;
@@ -28,8 +28,8 @@ public class BuildingScript : MonoBehaviour, IDamageable
     public int yPos;
     public float maxHitpoint;
     public float curHitpoint;
-    public GridEntity entity;
-
+    public GridEntity entity { get; set; }
+    public TargetModule targetModule { get; set; }
 
 
     // Use this for initialization
@@ -46,9 +46,10 @@ public class BuildingScript : MonoBehaviour, IDamageable
 
     public float curHP
     {
-		get{
-			return curHitpoint;
-		}
+        get
+        {
+            return curHitpoint;
+        }
         set
         {
             curHitpoint = value;
@@ -56,21 +57,25 @@ public class BuildingScript : MonoBehaviour, IDamageable
     }
     public float maxHP
     {
-		get{
-			return maxHitpoint;
-		}
+        get
+        {
+            return maxHitpoint;
+        }
         set
         {
             maxHitpoint = value;
         }
     }
 
-    public GameObject body{
-        get{
+    public GameObject body
+    {
+        get
+        {
             return gameObject;
         }
-        set{
-            
+        set
+        {
+
         }
     }
     public DamageCalculator damageCalculator { get; set; }
@@ -81,6 +86,7 @@ public class BuildingScript : MonoBehaviour, IDamageable
         {
             var ge = gridScript.Instance.MakeEntity(size, size, xPos, yPos);
             BuildScript.Instance.SetEntityAvatar(ge, gameObject);
+            targetModule = new TargetModule(entity);
             BuildingManager.Instance.addBuilding(gameObject);
         }
     }
