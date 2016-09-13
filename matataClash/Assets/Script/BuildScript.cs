@@ -85,6 +85,7 @@ public class BuildScript : MonoBehaviour
         inputManager.Instance.selectedEntity = ge;
 
         go.GetComponent<BuildingScript>().entity = ge;
+        ge.CenterAvatar();
     }
 
     void SetConfirmButton()

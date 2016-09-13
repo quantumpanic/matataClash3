@@ -69,7 +69,7 @@ public interface IDamager
     CombatManager combatManager { get; }
 }
 
-public class DamageInstance
+public struct DamageInstance
 {
     public IDamager owner;
     public IDamageable target;
@@ -104,7 +104,9 @@ public class DamageCalculator
         {
             float a = (float)entity.curHP / entity.maxHP;
             SetHealthVisual(a);
+
             // report dmg here
+            CombatManager.Instance.DamageReport(entity);
         }
     }
 
@@ -117,7 +119,9 @@ public class DamageCalculator
         {
             float a = (float)entity.curHP / entity.maxHP;
             SetHealthVisual(a);
+
             // report dmg here
+            CombatManager.Instance.DamageReport(entity);
         }
     }
 }
