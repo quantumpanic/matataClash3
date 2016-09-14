@@ -128,31 +128,53 @@ public class DamageCalculator
 
 public interface ITargettable
 {
+    GameObject body { get; set; }
     GridEntity entity { get; set; }
     TargetModule targetModule { get; set; }
 }
 
 public class TargetModule
 {
-    public GridEntity entity;
-    public RAIN.Entities.EntityRig entityRigBase;
+    public ITargettable baseInterface;
+    public RAIN.Entities.EntityRig entityRig;
 
-    public TargetModule(GridEntity creator)
+    public TargetModule(ITargettable creator)
     {
-        entity = creator;
-        Debug.Log(entity);
+        baseInterface = creator;
     }
 
     public void MakeTargetNodes()
     {
-        Transform rigTransform = entity.avatar.transform.GetChild(4);
-        entityRigBase = rigTransform.GetComponent<RAIN.Entities.EntityRig>();
-        foreach (GridObject go in entity.anchors)
+        Transform rigTransform = baseInterface.body.transform.GetChild(4);
+        entityRig = rigTransform.GetComponent<RAIN.Entities.EntityRig>();
+        foreach (GridObject go in baseInterface.entity.anchors)
         {
-            GameObject obj = (GameObject)GameObject.Instantiate(entityRigBase.gameObject, go.transform.position, Quaternion.identity);
-            obj.GetComponent<RAIN.Entities.EntityRig>().Entity.Form = obj;
-            obj.GetComponent<RAIN.Entities.EntityRig>().Entity.GetAspect("BuildingVisualAspect").MountPoint = obj.transform;
-            obj.transform.parent = entity.avatar.transform;
+            TargetNode.MakeNode(baseInterface, rigTransform.gameObject, go.transform.position);
         }
+    }
+}
+
+public interface IDamageableTarget : IDamageable, ITargettable { }
+
+public class TargetNode : MonoBehaviour, IDamageableTarget
+{
+    public TargetModule targetModule { get; set; }
+    public GridEntity entity { get { return targetModule.baseInterface.entity; } set { } }
+    public GameObject body { get { return targetModule.baseInterface.body; } set { } }
+    public float curHP { get { return targetModule.baseInterface.body.GetComponent<BuildingScript>().curHP; } set { } }
+    public float maxHP { get { return targetModule.baseInterface.body.GetComponent<BuildingScript>().maxHP; } set { } }
+    public DamageCalculator damageCalculator { get { return targetModule.baseInterface.body.GetComponent<BuildingScript>().damageCalculator; } set { } }
+
+    public static TargetNode MakeNode(ITargettable baseInterface, GameObject baseObj, Vector3 pos)
+    {
+        GameObject obj = (GameObject)GameObject.Instantiate(baseObj, pos, Quaternion.identity);
+        obj.GetComponent<RAIN.Entities.EntityRig>().Entity.Form = obj;
+        obj.GetComponent<RAIN.Entities.EntityRig>().Entity.GetAspect("BuildingVisualAspect").MountPoint = obj.transform;
+
+        TargetNode node = obj.AddComponent<TargetNode>();
+        node.targetModule = baseInterface.targetModule;
+        obj.transform.parent = node.entity.avatar.transform;
+
+        return node;
     }
 }

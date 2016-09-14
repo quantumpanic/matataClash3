@@ -27,12 +27,15 @@ public class TroopScript : MonoBehaviour, IDamager, IDamageable
             curHitpoint = value;
         }
     }
-     public GameObject body{
-        get{
+    public GameObject body
+    {
+        get
+        {
             return gameObject;
         }
-        set{
-            
+        set
+        {
+
         }
     }
     public float baseDamage;
@@ -70,8 +73,12 @@ public class TroopScript : MonoBehaviour, IDamager, IDamageable
         // use event
 
         GameObject target = GetComponent<DetectionPriority>().aiRig.AI.WorkingMemory.GetItem<GameObject>("targetPos");
-        IDamageable targetScript = target.GetComponent<IDamageable>();
+        IDamageable targetScript = target.GetComponent<IDamageableTarget>();
 
-        combatManager.NewDamageEvent(new DamageInstance(this, targetScript));
+        // check if in range before dealing damage
+        if (GetComponent<DetectionPriority>().closestDist < 0.3f)
+        {
+            combatManager.NewDamageEvent(new DamageInstance(this, targetScript));
+        }
     }
 }

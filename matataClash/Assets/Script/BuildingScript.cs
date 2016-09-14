@@ -3,7 +3,7 @@ using System.Collections;
 using UnityEngine.UI;
 using System.Collections.Generic;
 
-public class BuildingScript : MonoBehaviour, IDamageable, ITargettable
+public class BuildingScript : MonoBehaviour, IDamageableTarget
 {
 
     //public Button upgradeButton;
@@ -86,7 +86,7 @@ public class BuildingScript : MonoBehaviour, IDamageable, ITargettable
         {
             var ge = gridScript.Instance.MakeEntity(size, size, xPos, yPos);
             BuildScript.Instance.SetEntityAvatar(ge, gameObject);
-            targetModule = new TargetModule(entity);
+            targetModule = new TargetModule(this);
             BuildingManager.Instance.addBuilding(gameObject);
         }
     }
