@@ -412,6 +412,8 @@ public class GridEntity : MonoBehaviour, IArrangeable, IDimensions
             ProjectAnchors();
         }
 
+        avatar.GetComponent<BuildingScript>().targetModule.MakeTargetNodes();
+
         avatar.GetComponent<BuildingScript>().destroyEvt += AvatarHandler;
     }
 

@@ -125,3 +125,34 @@ public class DamageCalculator
         }
     }
 }
+
+public interface ITargettable
+{
+    GridEntity entity { get; set; }
+    TargetModule targetModule { get; set; }
+}
+
+public class TargetModule
+{
+    public GridEntity entity;
+    public RAIN.Entities.EntityRig entityRigBase;
+
+    public TargetModule(GridEntity creator)
+    {
+        entity = creator;
+        Debug.Log(entity);
+    }
+
+    public void MakeTargetNodes()
+    {
+        Transform rigTransform = entity.avatar.transform.GetChild(4);
+        entityRigBase = rigTransform.GetComponent<RAIN.Entities.EntityRig>();
+        foreach (GridObject go in entity.anchors)
+        {
+            GameObject obj = (GameObject)GameObject.Instantiate(entityRigBase.gameObject, go.transform.position, Quaternion.identity);
+            obj.GetComponent<RAIN.Entities.EntityRig>().Entity.Form = obj;
+            obj.GetComponent<RAIN.Entities.EntityRig>().Entity.GetAspect("BuildingVisualAspect").MountPoint = obj.transform;
+            obj.transform.parent = entity.avatar.transform;
+        }
+    }
+}
