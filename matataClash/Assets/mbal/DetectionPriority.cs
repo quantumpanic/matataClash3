@@ -16,7 +16,7 @@ public class DetectionPriority : MonoBehaviour
         InvokeRepeating("CheckMemory", 0, .5f);
     }
 
-    float closestDist;
+    public float closestDist;
 
     void DetectClosestAspect(string aspectName)
     {
