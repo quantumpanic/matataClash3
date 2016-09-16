@@ -86,9 +86,16 @@ public class BuildingScript : MonoBehaviour, IDamageableTarget
         {
             var ge = gridScript.Instance.MakeEntity(size, size, xPos, yPos);
             BuildScript.Instance.SetEntityAvatar(ge, gameObject);
-            targetModule = new TargetModule(this);
             BuildingManager.Instance.addBuilding(gameObject);
+
+            if (buildingType == 2)
+            {
+                TroopsManager.Instance.addCamp(gameObject);
+            }
         }
+
+        // add target module
+        targetModule = new TargetModule(this);
     }
 
     // Update is called once per frame

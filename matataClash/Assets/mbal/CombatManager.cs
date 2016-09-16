@@ -35,6 +35,9 @@ public class CombatManager : MonoBehaviour
     public GameObject DeployTroop(GridObject point)
     {
         if (!isDeployMode) return null;
+        if (TroopsManager.Instance.troops.Count < 1) return null;
+        TroopsManager.Instance.troops.RemoveRange(TroopsManager.Instance.troops.Count - 1, 1);
+        print(TroopsManager.Instance.troops.Count);
         GameObject go = (GameObject)Instantiate(combatUnit, point.transform.position, Quaternion.identity);
         return go;
     }

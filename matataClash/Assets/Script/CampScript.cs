@@ -8,14 +8,18 @@ public class CampScript : MonoBehaviour {
 	// Use this for initialization
 	public List<int> campedTroops = new List<int>();
 	int maxTroops = 5;
-	int availableSlot;
+	public int availableSlot;
 
 	//Tar buang
 	public Text capacityText;
 	string a;
 
-	void Start () {
+	void Awake()
+	{
 		availableSlot = maxTroops;
+	}
+
+	void Start () {
 
 		capacityText = gameObject.transform.GetChild(1).GetChild(0).GetComponent<Text>();
 		

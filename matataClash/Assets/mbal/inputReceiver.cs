@@ -29,6 +29,18 @@ public abstract class TouchInputReceiver : MonoBehaviour, IClickable
         //StartCoroutine(YellowWhite());
     }
 
+    public virtual void OnMouseDown()
+    {
+        GridEntity ge = GetComponent<GridObject>().BlueprintOrEntity.GetComponent<GridEntity>();
+        if (ge) ge.gridPosChanged = false;
+    }
+
+    public virtual void OnMouseUp()
+    {
+        // generate nav mesh
+        if (inputManager.Instance.selectedEntity.gridPosChanged) gridScript.Instance.LateGenerateNavMesh();
+    }
+
     public virtual void OnPress()
     {
         //GetComponent<Renderer>().material.color = Color.green;
@@ -49,6 +61,7 @@ public abstract class TouchInputReceiver : MonoBehaviour, IClickable
                     Destroy(ge);
                 }
             }
+
         }
         catch (System.Exception)
         {
@@ -64,6 +77,8 @@ public abstract class TouchInputReceiver : MonoBehaviour, IClickable
             gridScript.Instance.ToggleGridCursor(false);
             print("no entity found");
         }
+
+        OnMouseUp();
     }
 
     IEnumerator YellowWhite()
@@ -78,5 +93,7 @@ public interface IClickable
 {
     void OnClick();
     void OnPress();
+    void OnMouseDown();
+    void OnMouseUp();
     void OnHover();
 }

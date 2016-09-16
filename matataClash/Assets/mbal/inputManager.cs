@@ -32,9 +32,23 @@ public class inputManager : MonoBehaviour
     void DraggingPhase(GridObject go)
     {
         GridObject g = oldHit.transform.GetComponent<GridObject>();
-        if (g && g.BlueprintOrEntity)
+        if (g && g.blueprint)
         {
-            GridEntity ge = g.BlueprintOrEntity.GetComponent<GridEntity>();
+            GridEntity ge = g.blueprint.GetComponent<GridEntity>();
+            BuildingScript bs = ge.avatar.GetComponent<BuildingScript>();
+            if (ge == selectedEntity && bs & !bs.isBuilding)
+            {
+                if (g.SnapTo(go))
+                {
+                    oldHit = hit;
+                }
+                else isDraggingPhase = false;
+            }
+        }
+
+        else if (g && g.entity)
+        {
+            GridEntity ge = g.entity.GetComponent<GridEntity>();
             BuildingScript bs = ge.avatar.GetComponent<BuildingScript>();
             if (ge == selectedEntity && bs & !bs.isBuilding)
             {
@@ -100,6 +114,8 @@ public class inputManager : MonoBehaviour
                         oldHit = hit;
                         firstHit = oldHit;
                         isDraggingPhase = true;
+
+                        clicked.OnMouseDown();
                     }
                 }
 
@@ -117,6 +133,10 @@ public class inputManager : MonoBehaviour
                     if (Vector3.Distance(firstHit.point, hit.point) < 0.1f)
                     {
                         clicked.OnClick();
+                    }
+                    else
+                    {
+                        clicked.OnMouseUp();
                     }
                 }
 

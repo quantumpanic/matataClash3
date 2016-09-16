@@ -55,6 +55,7 @@ public class BuildingManager : MonoBehaviour {
 				cur++;
 		}
 
+		print(cur);
 		if(cur >= max)
 			if(b)
 				b.gameObject.SetActive(false);

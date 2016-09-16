@@ -22,6 +22,7 @@ private static TroopsManager instance = null;
 	public List<int> troops = new List<int>();
 	public void addCamp (GameObject newCamp) {
 		campList.Add(newCamp);
+		//availableCampSlot += newCamp.GetComponent<CampScript>().availableSlot;
 		availableCampSlot += newCamp.GetComponent<CampScript>().getAvailableSlot();
 		Debug.Log(availableCampSlot);
 
