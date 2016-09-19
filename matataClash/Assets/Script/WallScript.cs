@@ -12,7 +12,11 @@ public class WallScript : MonoBehaviour {
 		if (doLink)
 			CheckNeighbor();
 	}
+<<<<<<< HEAD
 	public void CheckNeighbor(){		
+=======
+	public void CheckNeighbor(){
+>>>>>>> origin/mbal4
 		GridEntity ge = gameObject.GetComponent<BuildingScript>().entity;
 		GridObject go = gridScript.Instance.StrictTileLookup(ge.MainAnchor, 1 , 1);
 		GridObject top = gridScript.Instance.StrictTileLookup(go, 0, 2);

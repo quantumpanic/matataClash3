@@ -172,6 +172,8 @@ public class gridScript : MonoBehaviour
         foreach (GridObject g in gridScript.Instance.allTiles)
         {
             renderer = g.GetComponent<Renderer>();
+            if (!renderer) continue;
+
             Color color = Color.yellow; // default, yellow
             color.a = 0.3f;
 
@@ -203,6 +205,17 @@ public class gridScript : MonoBehaviour
 
             renderer.material.color = color;
         }
+    }
+
+    public void LateGenerateNavMesh()
+    {
+        StartCoroutine(NavMeshCoroutine());
+    }
+
+    IEnumerator NavMeshCoroutine()
+    {
+        yield return new WaitForEndOfFrame();
+        DefenderEnvironment.Instance.GenerateNavmesh();
     }
 }
 
@@ -306,11 +319,13 @@ public class GridObject : GridAbstract
     public override bool SnapTo(GridObject other)
     {
         if (gridBlueprint || gridChild)
+        {
             //if (GiveChildTo(other))
             if (blueprint && blueprint.GetComponent<GridEntity>().ParallelHoverOnGrid(this, other))
                 return true;
             else if (entity && entity.GetComponent<GridEntity>().ParallelMoveOnGrid(this, other))
                 return true;
+        }
         return false;
     }
 
@@ -412,7 +427,7 @@ public class GridEntity : MonoBehaviour, IArrangeable, IDimensions
             ProjectAnchors();
         }
 
-        avatar.GetComponent<BuildingScript>().targetModule.MakeTargetNodes();
+        if (avatar.GetComponent<BuildingScript>().targetModule != null) avatar.GetComponent<BuildingScript>().targetModule.MakeTargetNodes();
 
         avatar.GetComponent<BuildingScript>().destroyEvt += AvatarHandler;
     }
@@ -503,9 +518,9 @@ public class GridEntity : MonoBehaviour, IArrangeable, IDimensions
 
         if (canMove)
         {
-            gridPosChanged = false;
+            //gridPosChanged = false; (moved to inputreceiver OnPressed)
             if (Index != target.Index) gridPosChanged = true;
-
+            
             Index = target.Index;
             RespawnAnchors();
             return true;
@@ -597,19 +612,13 @@ public class GridEntity : MonoBehaviour, IArrangeable, IDimensions
                 if (g != MainAnchor) anchors.Add(g);
 #if UNITY_EDITOR
                 //parent
-                g.gridChild.transform.parent = g.entity.transform;
+                //g.gridChild.transform.parent = g.entity.transform;
 #endif
             }
         }
 
         gridScript.Instance.UpdateGridCursor();
-        if (gridPosChanged) StartCoroutine(LateGenerateNavMesh());
-    }
-
-    IEnumerator LateGenerateNavMesh()
-    {
-        yield return new WaitForEndOfFrame();
-        DefenderEnvironment.Instance.GenerateNavmesh();
+        //if (gridPosChanged) StartCoroutine(LateGenerateNavMesh());
     }
 
     public void DeactivateAnchors(bool isBlueprint = false)
@@ -648,6 +657,7 @@ public class GridEntity : MonoBehaviour, IArrangeable, IDimensions
 
             isBlueprint = false;
             gridScript.Instance.ToggleGridCursor(false);
+            gridScript.Instance.LateGenerateNavMesh();
         }
 
         if (!rootThis)
@@ -656,6 +666,7 @@ public class GridEntity : MonoBehaviour, IArrangeable, IDimensions
 
             foreach (GridObject g in anchors)
             {
+                if (g.entity != this) continue;
                 g.DestroyChild();
                 g.Orphan();
                 g.GiveChild((GameObject)Instantiate(gridScript.Instance.tileObj, Vector3.zero, Quaternion.identity), true);
