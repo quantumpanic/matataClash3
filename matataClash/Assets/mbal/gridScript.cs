@@ -612,7 +612,7 @@ public class GridEntity : MonoBehaviour, IArrangeable, IDimensions
                 if (g != MainAnchor) anchors.Add(g);
 #if UNITY_EDITOR
                 //parent
-                g.gridChild.transform.parent = g.entity.transform;
+                //g.gridChild.transform.parent = g.entity.transform;
 #endif
             }
         }

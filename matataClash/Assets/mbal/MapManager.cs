@@ -39,8 +39,36 @@ public class MapManager : MonoBehaviour
 
         foreach (MapEntity ent in data.mapEntities)
         {
-            gridScript.Instance.MakeEntity(5, 5, ent.Index[0], ent.Index[1]);
+            //gridScript.Instance.MakeEntity(5, 5, ent.Index[0], ent.Index[1]);
+
+            GameObject buildingType = null;
+            switch (ent.entityID)
+            {
+                case 0:
+                    buildingType = BuildScript.Instance.townHallPrefab;
+                    break;
+                case 1:
+                    buildingType = BuildScript.Instance.barrackPrefab;
+                    break;
+                case 2:
+                    buildingType = BuildScript.Instance.goldMinePrefab;
+                    break;
+                case 3:
+                    buildingType = BuildScript.Instance.campPrefab;
+                    break;
+                case 4:
+                    buildingType = BuildScript.Instance.wallPrefab;
+                    break;
+            }
+
             // add the avatar
+            if (buildingType == null) continue;
+            GameObject building = (GameObject)Instantiate(buildingType, Vector3.zero, Quaternion.identity);
+            //BuildingManager.Instance.addBuilding(building);
+            BuildingScript script = building.GetComponent<BuildingScript>();
+            script.xPos = ent.Index[0];
+            script.yPos = ent.Index[1];
+            script.isBuiltBeforeStart = true;
         }
     }
 
@@ -51,16 +79,18 @@ public class MapManager : MonoBehaviour
 
     public void ClearMap()
     {
-        return;
         List<MonoBehaviour> tempList = new List<MonoBehaviour>();
         foreach (GridEntity ge in gridScript.Instance.entities)
         {
             if (ge) tempList.Add(ge);
-            Destroy(tempList[0]);
+        }
+
+        foreach (GridEntity ge in tempList)
+        {
+            Destroy(ge);
         }
 
         gridScript.Instance.entities.Clear();
-        print("clear");
     }
 }
 

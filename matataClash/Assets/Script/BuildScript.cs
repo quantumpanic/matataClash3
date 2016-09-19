@@ -5,6 +5,7 @@ using UnityEngine.UI;
 
 public class BuildScript : MonoBehaviour
 {
+    public GameObject townHallPrefab;
     public GameObject barrackPrefab;
     public GameObject goldMinePrefab;
     public GameObject campPrefab;
