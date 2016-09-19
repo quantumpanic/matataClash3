@@ -12,11 +12,7 @@ public class WallScript : MonoBehaviour {
 		if (doLink)
 			CheckNeighbor();
 	}
-<<<<<<< HEAD
-	public void CheckNeighbor(){		
-=======
 	public void CheckNeighbor(){
->>>>>>> origin/mbal4
 		GridEntity ge = gameObject.GetComponent<BuildingScript>().entity;
 		GridObject go = gridScript.Instance.StrictTileLookup(ge.MainAnchor, 1 , 1);
 		GridObject top = gridScript.Instance.StrictTileLookup(go, 0, 2);
@@ -27,7 +23,7 @@ public class WallScript : MonoBehaviour {
 			}
 		}else
 			upWall.SetActive(false);
-		//if(top) print(top.name);
+
 		GridObject bottom = gridScript.Instance.StrictTileLookup(go, 0, -2);
 		if(bottom && bottom.entity){
 			if(bottom.entity.GetComponent<GridEntity>().avatar.GetComponent<BuildingScript>().buildingType == 4){
@@ -36,7 +32,7 @@ public class WallScript : MonoBehaviour {
 			}
 		}else
 			downWall.SetActive(false);
-		//if(bottom) print(bottom.name);
+
 		GridObject right = gridScript.Instance.StrictTileLookup(go, 2, 0);
 		if(right && right.entity){
 			if(right.entity.GetComponent<GridEntity>().avatar.GetComponent<BuildingScript>().buildingType == 4){
@@ -45,7 +41,7 @@ public class WallScript : MonoBehaviour {
 			}
 		}else
 			rightWall.SetActive(false);
-		//if(right) print(right.name);
+
 		GridObject left = gridScript.Instance.StrictTileLookup(go, -2, 0);
 		if(left && left.entity){
 			if(left.entity.GetComponent<GridEntity>().avatar.GetComponent<BuildingScript>().buildingType == 4){
@@ -54,7 +50,7 @@ public class WallScript : MonoBehaviour {
 			}
 		}else
 			leftWall.SetActive(false);
-		//if(left) print(left.name);
+			
 	}
 
 	public void Adapt(int w, bool a = true){

@@ -171,6 +171,7 @@ public class TargetNode : MonoBehaviour, IDamageableTarget
     public static TargetNode MakeNode(ITargettable baseInterface, GameObject baseObj, Vector3 pos)
     {
         GameObject obj = (GameObject)GameObject.Instantiate(baseObj, pos, Quaternion.identity);
+        Debug.Log(obj);//+"   "+obj.GetComponent<RAIN.Entities.EntityRig>().Entity);
         obj.GetComponent<RAIN.Entities.EntityRig>().Entity.Form = obj;
         obj.GetComponent<RAIN.Entities.EntityRig>().Entity.GetAspect("BuildingVisualAspect").MountPoint = obj.transform;
 

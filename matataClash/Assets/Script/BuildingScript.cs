@@ -88,7 +88,6 @@ public class BuildingScript : MonoBehaviour, IDamageableTarget
             BuildScript.Instance.SetEntityAvatar(ge, gameObject);
             BuildingManager.Instance.addBuilding(gameObject);
 
-<<<<<<< HEAD
             switch (buildingType) {
                 case 2:
                     TroopsManager.Instance.addCamp(gameObject);
@@ -100,12 +99,6 @@ public class BuildingScript : MonoBehaviour, IDamageableTarget
                     break;
             }
                 
-=======
-            if (buildingType == 2)
-            {
-                TroopsManager.Instance.addCamp(gameObject);
-            }
->>>>>>> origin/mbal4
         }
 
         // add target module
