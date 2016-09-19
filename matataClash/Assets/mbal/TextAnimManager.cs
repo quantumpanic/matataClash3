@@ -61,6 +61,11 @@ public class TextAnimManager : MonoBehaviour
         return SpawnFloatingText(pos, "+" + amt, 10, Color.yellow);
     }
 
+    public TextAnim SpawnAddManaText(Vector3 pos, string amt)
+    {
+        return SpawnFloatingText(pos, "+" + amt, 10, Color.blue);
+    }
+
     public TextAnim WarningNoWorker()
     {
         return SpawnStaticText(Vector2.zero, "Not Enough Workers!", 50, Color.red);

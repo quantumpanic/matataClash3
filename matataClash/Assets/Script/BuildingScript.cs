@@ -88,6 +88,18 @@ public class BuildingScript : MonoBehaviour, IDamageableTarget
             BuildScript.Instance.SetEntityAvatar(ge, gameObject);
             targetModule = new TargetModule(this);
             BuildingManager.Instance.addBuilding(gameObject);
+
+            switch (buildingType) {
+                case 2:
+                    TroopsManager.Instance.addCamp(gameObject);
+                    break;
+                case 3:
+                    gameObject.GetComponent<ResourceCollectorScript>().ProduceResources();
+                    break;
+                default:
+                    break;
+            }
+                
         }
     }
 

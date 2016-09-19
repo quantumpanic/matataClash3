@@ -24,7 +24,6 @@ private static TroopsManager instance = null;
 		campList.Add(newCamp);
 		availableCampSlot += newCamp.GetComponent<CampScript>().getAvailableSlot();
 		Debug.Log(availableCampSlot);
-
 		troops.AddRange(newCamp.GetComponent<CampScript>().campedTroops);
 	}
 
@@ -44,6 +43,15 @@ private static TroopsManager instance = null;
 		}
 		
 	}
+
+	/*
+	campslotindex=0
+	foreach go g in campList
+		
+		int camplv = g.campscript.lv
+		campslotindex += 5xcamplv
+		
+	*/
 
 	public bool isAllCampFull () {
 		if (availableCampSlot > 0) {

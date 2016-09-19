@@ -12,6 +12,8 @@ public class ResourceCollectorScript : MonoBehaviour
     float elapsedTime = 0;
     bool isGathering = false;
     public Button collectButton;
+    // 1 gold 2 mana
+    public int resType;
 
     // Use this for initialization
     void Start()
@@ -55,8 +57,17 @@ public class ResourceCollectorScript : MonoBehaviour
 
     public void CollectResources()
     {
-        GameManagerScript.Instance.SetGold(resGathered);
-        TextAnimManager.Instance.SpawnAddGoldText(transform.position, resGathered.ToString());
+        switch(resType){
+            case 1:
+                GameManagerScript.Instance.SetGold(resGathered);
+                TextAnimManager.Instance.SpawnAddGoldText(transform.position, resGathered.ToString());
+                break;
+            case 2:
+                GameManagerScript.Instance.SetMana(resGathered);
+                TextAnimManager.Instance.SpawnAddManaText(transform.position, resGathered.ToString());
+                break;
+                
+        }
         resGathered = 0;
         ProduceResources();
         collectButton.gameObject.SetActive(false);
