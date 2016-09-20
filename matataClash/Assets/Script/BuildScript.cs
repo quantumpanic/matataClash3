@@ -10,6 +10,7 @@ public class BuildScript : MonoBehaviour
     public GameObject goldMinePrefab;
     public GameObject campPrefab;
     public GameObject wallPrefab;
+    public GameObject manaPrefab;
     public GameObject confirmUIPrefab;
 
     //public List<GameObject> buildingList;
@@ -19,7 +20,7 @@ public class BuildScript : MonoBehaviour
     GameObject confirmUI;
     int buildingSize;
     string buildingName;
-    int category;//1 army, 2 def, 3 res
+    //int category;//1 army, 2 def, 3 res
 
     //public Dictionary<int, string> buildingDict = new Dictionary<int, string>();
 
@@ -45,22 +46,27 @@ public class BuildScript : MonoBehaviour
             case "Barrack":
                 newBuildingPrefab = barrackPrefab;
                 buildingSize = 5;
-                category = 0;
+              //  category = 0;
                 break;
             case "GoldMine":
                 newBuildingPrefab = goldMinePrefab;
                 buildingSize = 5;
-                category = 3;
+               // category = 3;
                 break;
             case "Camp":
                 newBuildingPrefab = campPrefab;
                 buildingSize = 5;
-                category = 1;
+              //  category = 1;
                 break;
             case "Wall":
                 newBuildingPrefab = wallPrefab;
                 buildingSize = 3;
-                category = 2;
+              //  category = 2;
+                break;
+            case "Mana":
+                newBuildingPrefab = manaPrefab;
+                buildingSize = 5;
+             //   category = 2;
                 break;
         }
         if (CancelBuild()) return;
