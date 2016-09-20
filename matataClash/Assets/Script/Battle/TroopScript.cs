@@ -5,6 +5,7 @@ public class TroopScript : MonoBehaviour, IDamager, IDamageable
 {
     public float maxHitpoint;
     public float curHitpoint;
+    public int campIndex;
     public float maxHP
     {
         get

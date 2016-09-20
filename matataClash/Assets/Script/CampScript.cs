@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class CampScript : MonoBehaviour {
 
 	// Use this for initialization
-	public List<int> campedTroops = new List<int>();
+	public List<GameObject> campedTroops = new List<GameObject>();
 	int maxTroops = 5;
 	public int availableSlot;
 
@@ -39,8 +39,8 @@ public class CampScript : MonoBehaviour {
 		}
 	}
 	
-	public void addTroops (int a){
-		campedTroops.Add(a);
+	public void addTroops (GameObject newTroops){
+		campedTroops.Add(newTroops);
 		//availableSlot--;
 	}
 

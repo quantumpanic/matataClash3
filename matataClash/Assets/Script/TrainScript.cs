@@ -7,6 +7,7 @@ public class TrainScript : MonoBehaviour {
 	//public GameObject trainUIPrefab;
 	Transform trainUI;
     int footmanCost = 10;
+    int querychanCost = 20;
     public GameObject camp;
 
     void Awake(){
@@ -15,6 +16,8 @@ public class TrainScript : MonoBehaviour {
         closeButton.onClick.AddListener(() => CloseTrainPanel());
         Button trainFootmanButton = trainUI.transform.GetChild(1).GetComponent<Button>();
         trainFootmanButton.onClick.AddListener(() => TrainFootman());
+        Button trainQuerychanButton = trainUI.transform.GetChild(2).GetComponent<Button>();
+        trainQuerychanButton.onClick.AddListener(() => TrainQueryChan());
     }
 
     public void Train() {        
@@ -37,6 +40,25 @@ public class TrainScript : MonoBehaviour {
         }
        
     }
+
+    void TrainQueryChan(){
+        if (GameManagerScript.Instance.GetMana() >= querychanCost){
+            if (TroopsManager.Instance.isAllCampFull()){
+                print("camp is full");
+                TextAnimManager.Instance.WarningCampFull();
+            } else {
+                print("train 1 querychan");
+                TroopsManager.Instance.addTroops(2);
+                GameManagerScript.Instance.SetMana(-querychanCost);
+            }
+        }else{
+            print("not enough mana");
+            TextAnimManager.Instance.WarningNoMana();
+        }
+       
+    }
+
+
 
     void CloseTrainPanel() {
         trainUI.gameObject.SetActive(false);
