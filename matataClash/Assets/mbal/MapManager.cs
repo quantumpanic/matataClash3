@@ -51,13 +51,16 @@ public class MapManager : MonoBehaviour
                     buildingType = BuildScript.Instance.barrackPrefab;
                     break;
                 case 2:
-                    buildingType = BuildScript.Instance.goldMinePrefab;
+                    buildingType = BuildScript.Instance.campPrefab;
                     break;
                 case 3:
-                    buildingType = BuildScript.Instance.campPrefab;
+                    buildingType = BuildScript.Instance.goldMinePrefab;
                     break;
                 case 4:
                     buildingType = BuildScript.Instance.wallPrefab;
+                    break;
+                case 5:
+                    buildingType = BuildScript.Instance.manaPrefab;
                     break;
             }
 
@@ -70,6 +73,12 @@ public class MapManager : MonoBehaviour
             script.yPos = ent.Index[1];
             script.isBuiltBeforeStart = true;
         }
+
+        if (SceneManager.Instance.isCombatMap)
+        {
+            gridScript.Instance.LateGenerateNavMesh();
+            CombatManager.Instance.isDeployMode = false;
+        }
     }
 
     public void LoadDefaultMap()
@@ -79,6 +88,7 @@ public class MapManager : MonoBehaviour
 
     public void ClearMap()
     {
+        // clear buildings
         List<MonoBehaviour> tempList = new List<MonoBehaviour>();
         foreach (GridEntity ge in gridScript.Instance.entities)
         {
@@ -90,6 +100,23 @@ public class MapManager : MonoBehaviour
             Destroy(ge);
         }
 
+        // clear units
+        List<GameObject> tempGoList = new List<GameObject>();
+        foreach (GameObject go in TroopsManager.Instance.survivingTroops)
+        {
+            if (go) tempGoList.Add(go);
+        }
+
+        foreach (GameObject go in tempGoList)
+        {
+            go.transform.GetChild(0).GetComponent<TroopScript>().Evacuate();
+        }
+
+        // clear camplist before spawning new camps
+        TroopsManager.Instance.campList.Clear();
+        // reset the unit counter
+        CombatManager.Instance.unitDeployIndex = 0;
+
         gridScript.Instance.entities.Clear();
         StartCoroutine(RefreshGrid());
     }
@@ -98,7 +125,6 @@ public class MapManager : MonoBehaviour
     {
         yield return new WaitForEndOfFrame();
         gridScript.Instance.UpdateGridCursor();
-        gridScript.Instance.LateGenerateNavMesh();
     }
 }
 
@@ -113,7 +139,7 @@ public class MapEntity
     {
         MapEntity me = new MapEntity();
         me.Index = ge.Index;
-        me.entityID = 0;
+        me.entityID = ge.avatar.GetComponent<BuildingScript>().buildingType;
 
         return me;
     }

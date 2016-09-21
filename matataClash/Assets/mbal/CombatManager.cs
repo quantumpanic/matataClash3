@@ -28,18 +28,26 @@ public class CombatManager : MonoBehaviour
     {
         isDeployMode = !isDeployMode;
         button.image.color = isDeployMode ? Color.red : new Color(255 / 255f, 245 / 255f, 210 / 255f);
-        if (isDeployMode) gridScript.Instance.LateGenerateNavMesh();
+        //if (isDeployMode) gridScript.Instance.LateGenerateNavMesh();
     }
 
     public GameObject combatUnit;
+    public int unitDeployIndex;
 
     public GameObject DeployTroop(GridObject point)
     {
+        // check ALL THE THINGS
         if (!isDeployMode) return null;
         if (TroopsManager.Instance.troops.Count < 1) return null;
-        TroopsManager.Instance.troops.RemoveRange(TroopsManager.Instance.troops.Count - 1, 1);
-        print(TroopsManager.Instance.troops.Count);
-        GameObject go = (GameObject)Instantiate(combatUnit, point.transform.position, Quaternion.identity);
+
+        //TroopsManager.Instance.troops.RemoveRange(TroopsManager.Instance.troops.Count - 1, 1);
+        //print(TroopsManager.Instance.troops.Count);
+        //GameObject go = (GameObject)Instantiate(combatUnit, point.transform.position, Quaternion.identity);
+        GameObject go = TroopsManager.Instance.troops[0];
+        //unitDeployIndex++;
+        go.SetActive(true);
+        go.transform.position = point.transform.position;
+        TroopsManager.Instance.troops.Remove(go);
         return go;
     }
 

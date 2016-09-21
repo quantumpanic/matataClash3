@@ -20,7 +20,7 @@ public class TroopsManager : MonoBehaviour {
 	public GameObject footmanPrefab;
 	public GameObject querychanPrefab;
 	GameObject newTroops;
-	List<GameObject> campList = new List<GameObject>();
+	public List<GameObject> campList = new List<GameObject>();
 	public int availableCampSlot = 0;
 	public List<GameObject> troops = new List<GameObject>();
 	public List<GameObject> survivingTroops = new List<GameObject>();
@@ -29,7 +29,7 @@ public class TroopsManager : MonoBehaviour {
         if (!Instance) Instance = this;
     }
 
-	void UpdateTroops(){
+	public void UpdateTroops(){
 		troops.Clear();
 		foreach(GameObject camp in campList){
 			troops.AddRange(camp.GetComponent<CampScript>().campedTroops);
@@ -61,10 +61,11 @@ public class TroopsManager : MonoBehaviour {
 			foreach (GameObject camp in campList) {
 				if (!camp.GetComponent<CampScript>().isCampFull()){
 					//troops masukan ke camp
-					camp.GetComponent<CampScript>().addTroops(newTroops);
-					newTroops.transform.GetChild(0).GetComponent<TroopScript>().campIndex = n;
+					GameObject t = Instantiate(newTroops,Vector3.one * 1000,Quaternion.identity) as GameObject;
+					camp.GetComponent<CampScript>().addTroops(t);
+					t.transform.GetChild(0).GetComponent<TroopScript>().campIndex = n;
 					UpdateTroops();
-					Debug.Log("ss");
+					//Debug.Log("ss");
 					break;
 				}
 				n++;

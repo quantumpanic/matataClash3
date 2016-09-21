@@ -50,6 +50,31 @@ public class SceneManager : MonoBehaviour
         MapManager.Instance.LoadMapLayout(chosenScene.mapDataFile);
         FadeInPanels(chosenScene.panelsToOpen);
         isCombatMap = chosenScene.isCombatMap;
+
+        // if coming back to HQ from battle
+        if (chosenScene.mapName == "Headquarters") Invoke("ReturnSurvivingTroopsToCamp", 0.1f);
+    }
+
+    public void ReturnSurvivingTroopsToCamp()
+    {
+        // reset camp slot
+        TroopsManager.Instance.availableCampSlot = 0;
+
+        foreach (GameObject c in TroopsManager.Instance.campList)
+        {
+            c.GetComponent<CampScript>().campedTroops.Clear();
+            TroopsManager.Instance.availableCampSlot += c.GetComponent<CampScript>().availableSlot;
+        }
+
+        foreach (GameObject t in TroopsManager.Instance.survivingTroops)
+        {
+            int x = t.transform.GetChild(0).GetComponent<TroopScript>().campIndex;
+            TroopsManager.Instance.campList[x].GetComponent<CampScript>().addTroops(t);
+            TroopsManager.Instance.availableCampSlot--;
+        }
+
+        TroopsManager.Instance.survivingTroops.Clear();
+        TroopsManager.Instance.UpdateTroops();
     }
 
     public MapData headquartersDataFile;

@@ -81,6 +81,11 @@ public class TextAnimManager : MonoBehaviour
         return SpawnStaticText(Vector2.zero, "Insufficient Mana!", 50, Color.red);
     }
 
+    public TextAnim WarningNoGold()
+    {
+        return SpawnStaticText(Vector2.zero, "Insufficient Gold!", 50, Color.red);
+    }
+
     public void ToggleMenu() {
         bool isHidden = contentPanel.GetBool("isHidden");
         contentPanel.SetBool("isHidden", !isHidden);

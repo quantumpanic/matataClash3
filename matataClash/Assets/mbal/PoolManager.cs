@@ -15,9 +15,9 @@ public class PoolManager : MonoBehaviour
 
     void Start()
     {
-        for (int i = 0; i < 100; i++)
+        for (int i = 0; i < 1936; i++)
         {
-            var g = Instantiate((GameObject)Instantiate(gridScript.Instance.tileObj, Vector3.zero, Quaternion.identity));
+            var g = Instantiate((GameObject)Instantiate(gridScript.Instance.tileObj, Vector3.one * 1000, Quaternion.identity));
             pool.Add(g);
         }
     }
