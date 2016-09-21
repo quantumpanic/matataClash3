@@ -19,6 +19,7 @@ public class SceneManager : MonoBehaviour
     public List<SceneItem> sceneList = new List<SceneItem>();
     public SceneItem currentScene;
     public SceneItem defaultScene;
+    public bool isCombatMap;
 
     public void GoToScene(string sceneName)
     {
@@ -32,12 +33,35 @@ public class SceneManager : MonoBehaviour
             }
         }
 
+
         if (chosenScene == currentScene) return;
-        else currentScene = chosenScene;
+        else
+        {
+            // if exiting headquarters, save the layout
+            if (currentScene.mapName == "Headquarters")
+            {
+                SaveHeadquartersLayout();
+            }
+
+            currentScene = chosenScene;
+        }
 
         // load mapDataFile and open all panelsToOpen
         MapManager.Instance.LoadMapLayout(chosenScene.mapDataFile);
         FadeInPanels(chosenScene.panelsToOpen);
+        isCombatMap = chosenScene.isCombatMap;
+    }
+
+    public MapData headquartersDataFile;
+
+    public void SaveHeadquartersLayout()
+    {
+        headquartersDataFile.mapEntities.Clear();
+
+        foreach (GridEntity ge in gridScript.Instance.entities)
+        {
+            headquartersDataFile.mapEntities.Add(MapEntity.CreateFromGrid(ge));
+        }
     }
 
     public void GoToScene(int index)

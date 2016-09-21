@@ -169,12 +169,14 @@ public class gridScript : MonoBehaviour
     public void UpdateGridCursor()
     {
         Renderer renderer;
+        Color color = Color.yellow; // default, yellow
+
         foreach (GridObject g in gridScript.Instance.allTiles)
         {
             renderer = g.GetComponent<Renderer>();
             if (!renderer) continue;
 
-            Color color = Color.yellow; // default, yellow
+            color = Color.yellow; // default, yellow
             color.a = 0.3f;
 
             // occupied by building
@@ -200,7 +202,7 @@ public class gridScript : MonoBehaviour
             if (g.entity == inputManager.Instance.selectedEntity)
             {
                 color = Color.green;
-                color.a = 0.5f;
+                color.a = 0.0f;
             }
 
             renderer.material.color = color;
@@ -429,10 +431,10 @@ public class GridEntity : MonoBehaviour, IArrangeable, IDimensions
 
         if (avatar.GetComponent<BuildingScript>().targetModule != null) avatar.GetComponent<BuildingScript>().targetModule.MakeTargetNodes();
 
-        avatar.GetComponent<BuildingScript>().destroyEvt += AvatarHandler;
+        //avatar.GetComponent<BuildingScript>().destroyEvt += AvatarHandler; // moved to avatar
     }
 
-    void AvatarHandler(GameObject g)
+    public void AvatarHandler(GameObject g)
     {
         Destroy(gameObject);
     }
@@ -520,7 +522,7 @@ public class GridEntity : MonoBehaviour, IArrangeable, IDimensions
         {
             //gridPosChanged = false; (moved to inputreceiver OnPressed)
             if (Index != target.Index) gridPosChanged = true;
-            
+
             Index = target.Index;
             RespawnAnchors();
             return true;
@@ -657,7 +659,7 @@ public class GridEntity : MonoBehaviour, IArrangeable, IDimensions
 
             isBlueprint = false;
             gridScript.Instance.ToggleGridCursor(false);
-            gridScript.Instance.LateGenerateNavMesh();
+            //gridScript.Instance.LateGenerateNavMesh();
         }
 
         if (!rootThis)
@@ -726,6 +728,8 @@ public class GridEntity : MonoBehaviour, IArrangeable, IDimensions
 
         if (isBlueprint && inputManager.Instance.selectedEntity) gridScript.Instance.UpdateGridCursor();
         else if (isBlueprint) gridScript.Instance.ToggleGridCursor(false);
+
+        Destroy(gameObject);
     }
 
     public virtual int Columns

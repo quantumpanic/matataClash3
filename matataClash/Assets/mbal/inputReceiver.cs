@@ -38,13 +38,14 @@ public abstract class TouchInputReceiver : MonoBehaviour, IClickable
     public virtual void OnMouseUp()
     {
         // generate nav mesh
-        if (inputManager.Instance.selectedEntity.gridPosChanged) gridScript.Instance.LateGenerateNavMesh();
+        //if (inputManager.Instance.selectedEntity.gridPosChanged) gridScript.Instance.LateGenerateNavMesh();
     }
 
     public virtual void OnPress()
     {
         //GetComponent<Renderer>().material.color = Color.green;
-        CombatManager.Instance.DeployTroop(GetComponent<GridObject>());
+        GameObject go = CombatManager.Instance.DeployTroop(GetComponent<GridObject>());
+        if (go) TroopsManager.Instance.survivingTroops.Add(go);
     }
 
     public virtual void OnClick()

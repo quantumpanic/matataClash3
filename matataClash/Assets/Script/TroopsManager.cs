@@ -21,8 +21,9 @@ public class TroopsManager : MonoBehaviour {
 	public GameObject querychanPrefab;
 	GameObject newTroops;
 	List<GameObject> campList = new List<GameObject>();
-	int availableCampSlot = 0;
+	public int availableCampSlot = 0;
 	public List<GameObject> troops = new List<GameObject>();
+	public List<GameObject> survivingTroops = new List<GameObject>();
 
 	void Awake(){
         if (!Instance) Instance = this;
@@ -61,7 +62,7 @@ public class TroopsManager : MonoBehaviour {
 				if (!camp.GetComponent<CampScript>().isCampFull()){
 					//troops masukan ke camp
 					camp.GetComponent<CampScript>().addTroops(newTroops);
-					newTroops.GetComponent<TroopScript>().campIndex = n;
+					newTroops.transform.GetChild(0).GetComponent<TroopScript>().campIndex = n;
 					UpdateTroops();
 					Debug.Log("ss");
 					break;
