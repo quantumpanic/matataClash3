@@ -28,6 +28,7 @@ public class CombatManager : MonoBehaviour
     {
         isDeployMode = !isDeployMode;
         button.image.color = isDeployMode ? Color.red : new Color(255 / 255f, 245 / 255f, 210 / 255f);
+        if (isDeployMode) gridScript.Instance.LateGenerateNavMesh();
     }
 
     public GameObject combatUnit;
@@ -100,6 +101,11 @@ public class DamageCalculator
         healthBar.transform.localScale = new Vector3(health, healthBar.transform.localScale.y, healthBar.transform.localScale.z);
     }
 
+    public void Die()
+    {
+        GameObject.Destroy(entity.body);
+    }
+
     public void ReceiveDamage(float dmg)
     {
         entity.curHP -= dmg;
@@ -107,6 +113,7 @@ public class DamageCalculator
         {
             float a = (float)entity.curHP / entity.maxHP;
             SetHealthVisual(a);
+            if (entity.curHP == 0) Die();
 
             // report dmg here
             CombatManager.Instance.DamageReport(entity);
@@ -122,6 +129,7 @@ public class DamageCalculator
         {
             float a = (float)entity.curHP / entity.maxHP;
             SetHealthVisual(a);
+            if (entity.curHP == 0) Die();
 
             // report dmg here
             CombatManager.Instance.DamageReport(entity);
@@ -171,7 +179,7 @@ public class TargetNode : MonoBehaviour, IDamageableTarget
     public static TargetNode MakeNode(ITargettable baseInterface, GameObject baseObj, Vector3 pos)
     {
         GameObject obj = (GameObject)GameObject.Instantiate(baseObj, pos, Quaternion.identity);
-        Debug.Log(obj);//+"   "+obj.GetComponent<RAIN.Entities.EntityRig>().Entity);
+        if (baseObj.transform.parent.name.Contains("Wall")) return null;
         obj.GetComponent<RAIN.Entities.EntityRig>().Entity.Form = obj;
         obj.GetComponent<RAIN.Entities.EntityRig>().Entity.GetAspect("BuildingVisualAspect").MountPoint = obj.transform;
 

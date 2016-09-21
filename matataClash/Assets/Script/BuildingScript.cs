@@ -103,6 +103,12 @@ public class BuildingScript : MonoBehaviour, IDamageableTarget
 
         // add target module
         targetModule = new TargetModule(this);
+
+        // add entity destroyer
+        destroyEvt += entity.AvatarHandler;
+
+        // show hp bar
+        if (!SceneManager.Instance.isCombatMap) transform.GetChild(1).GetChild(1).gameObject.SetActive(false);
     }
 
     // Update is called once per frame

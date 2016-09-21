@@ -91,6 +91,14 @@ public class MapManager : MonoBehaviour
         }
 
         gridScript.Instance.entities.Clear();
+        StartCoroutine(RefreshGrid());
+    }
+
+    IEnumerator RefreshGrid()
+    {
+        yield return new WaitForEndOfFrame();
+        gridScript.Instance.UpdateGridCursor();
+        gridScript.Instance.LateGenerateNavMesh();
     }
 }
 

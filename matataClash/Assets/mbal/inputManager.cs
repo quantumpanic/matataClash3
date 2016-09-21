@@ -31,6 +31,7 @@ public class inputManager : MonoBehaviour
 
     void DraggingPhase(GridObject go)
     {
+        if (SceneManager.Instance.isCombatMap) return;
         GridObject g = oldHit.transform.GetComponent<GridObject>();
         if (g && g.blueprint)
         {
