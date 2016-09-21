@@ -12,8 +12,6 @@ public class BuildScript : MonoBehaviour
     public GameObject wallPrefab;
     public GameObject manaPrefab;
     public GameObject confirmUIPrefab;
-
-    //public List<GameObject> buildingList;
     GameObject newBuildingPrefab;
     [SerializeField]
     GameObject nextBuilding;
@@ -21,22 +19,13 @@ public class BuildScript : MonoBehaviour
     int buildingSize;
     string buildingName;
     //int category;//1 army, 2 def, 3 res
-
-    //public Dictionary<int, string> buildingDict = new Dictionary<int, string>();
-
     public static BuildScript Instance; 
+
     void Awake()
     {
         if (!Instance) Instance = this;
-
-        //GoldMine
-        //buildingDict.Add(1, "resBuilding");
-        //Camp
-       // buildingDict.Add(1, "armyCamp");
-        //
     }
-
-
+    
     public void Build(string buildingName)
     {
         this.buildingName = buildingName;
@@ -46,27 +35,22 @@ public class BuildScript : MonoBehaviour
             case "Barrack":
                 newBuildingPrefab = barrackPrefab;
                 buildingSize = 5;
-              //  category = 0;
                 break;
             case "GoldMine":
                 newBuildingPrefab = goldMinePrefab;
                 buildingSize = 5;
-               // category = 3;
                 break;
             case "Camp":
                 newBuildingPrefab = campPrefab;
                 buildingSize = 5;
-              //  category = 1;
                 break;
             case "Wall":
                 newBuildingPrefab = wallPrefab;
                 buildingSize = 3;
-              //  category = 2;
                 break;
             case "Mana":
                 newBuildingPrefab = manaPrefab;
                 buildingSize = 5;
-             //   category = 2;
                 break;
         }
         if (CancelBuild()) return;
@@ -81,7 +65,6 @@ public class BuildScript : MonoBehaviour
             SetEntityAvatar(gridScript.Instance.MakeBlueprint(buildingSize, buildingSize), nextBuilding);
             SetConfirmButton();
         } else
-            //print("No worker available");
             TextAnimManager.Instance.WarningNoWorker();
     }
 
@@ -111,7 +94,6 @@ public class BuildScript : MonoBehaviour
     void ConfirmBuild()
     {
         if (!inputManager.Instance.selectedEntity.Root()) return;
-        //Destroy(confirmUI);
         confirmUI.SetActive(false);
         nextBuilding.GetComponent<BuildingScript>().Build();
         //nextBuilding.GetComponent<BuildingScript>().Build(buildingName, category);

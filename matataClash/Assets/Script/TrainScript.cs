@@ -3,8 +3,6 @@ using System.Collections;
 using UnityEngine.UI;
 
 public class TrainScript : MonoBehaviour {
-
-	//public GameObject trainUIPrefab;
 	Transform trainUI;
     int footmanCost = 10;
     int querychanCost = 20;
@@ -58,25 +56,7 @@ public class TrainScript : MonoBehaviour {
        
     }
 
-
-
     void CloseTrainPanel() {
         trainUI.gameObject.SetActive(false);
     }
-/*
-    void TrainFootman(){
-        if (GameManagerScript.Instance.GetMana() >= footmanCost){
-            if (camp.GetComponent<CampScript>().isCampFull()){
-                print("camp is full");
-            } else {
-                print("train 1 footman");
-                camp.GetComponent<CampScript>().addTroops(1);
-                GameManagerScript.Instance.SetMana(-footmanCost);
-            }
-        }else{
-            print("not enough mana");
-        }
-       
-    }
-*/
 }

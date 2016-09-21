@@ -4,13 +4,9 @@ using System.Collections.Generic;
 using UnityEngine.UI;
 
 public class CampScript : MonoBehaviour {
-
-	// Use this for initialization
 	public List<GameObject> campedTroops = new List<GameObject>();
 	int maxTroops = 5;
 	public int availableSlot;
-
-	//Tar buang
 	public Text capacityText;
 	string a;
 
@@ -24,9 +20,8 @@ public class CampScript : MonoBehaviour {
 		capacityText = gameObject.transform.GetChild(1).GetChild(0).GetComponent<Text>();
 		
 	}
-	//Tar buang
+
 	void Update(){
-		//a = "Army Camp ("+TroopsManager.Instance.troops.Count.ToString()+"/"+maxTroops+")";
 		availableSlot = maxTroops - campedTroops.Count;
 		a = "Army Camp ("+campedTroops.Count.ToString()+"/"+maxTroops+")";
 		capacityText.text = a;
@@ -45,16 +40,6 @@ public class CampScript : MonoBehaviour {
 	}
 
 	public bool isCampFull () {
-		/*
-		if(troops.Count < maxTroops) {
-			print(troops.Count);
-			return false;
-		}
-		else {
-			print(troops.Count);
-			return true;
-		}
-		*/
 		if (availableSlot > 0) {
 			return false;
 		} else {
@@ -62,7 +47,6 @@ public class CampScript : MonoBehaviour {
 		}
 	}
 	
-
 	public int getAvailableSlot () {
 		return availableSlot;
 	}
