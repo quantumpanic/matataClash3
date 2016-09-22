@@ -50,6 +50,9 @@ public abstract class TouchInputReceiver : MonoBehaviour, IClickable
 
     public virtual void OnClick()
     {
+        // cannot select building when combat
+        if (SceneManager.Instance.isCombatMap) return;
+
         try
         {
             inputManager.Instance.selectedEntity = GetComponent<GridObject>().BlueprintOrEntity.GetComponent<GridEntity>();

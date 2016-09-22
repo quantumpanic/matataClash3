@@ -59,7 +59,7 @@ public class TroopScript : MonoBehaviour, IDamager, IDamageable
     // Use this for initialization
     void Start()
     {
-        Invoke("Suicide", 5f);
+        //Invoke("Suicide", 20f);
     }
 
     // Update is called once per frame
@@ -70,12 +70,14 @@ public class TroopScript : MonoBehaviour, IDamager, IDamageable
 
     void Suicide()
     {
+        TroopsManager.Instance.survivingTroops.Remove(transform.parent.gameObject);
         Destroy(transform.parent.gameObject);
     }
-
-    void OnDestroy()
+    
+    public void Evacuate()
     {
-        TroopsManager.Instance.survivingTroops.Remove(transform.parent.gameObject);
+        CancelInvoke("Suicide");
+        transform.parent.gameObject.SetActive(false);
     }
 
     public void ExecuteAttack()

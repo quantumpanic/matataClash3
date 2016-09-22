@@ -6,7 +6,7 @@ public class GameManagerScript : ScriptableObject{
 	private static GameManagerScript instance = null; 
 
 	private int gold = 100;
-	private int mana = 1000;
+	private int mana = 100;
 	private int worker = 2;
 
 	protected GameManagerScript() {}

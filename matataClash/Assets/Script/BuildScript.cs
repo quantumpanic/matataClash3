@@ -19,13 +19,13 @@ public class BuildScript : MonoBehaviour
     int buildingSize;
     string buildingName;
     //int category;//1 army, 2 def, 3 res
-    public static BuildScript Instance; 
+    public static BuildScript Instance;
 
     void Awake()
     {
         if (!Instance) Instance = this;
     }
-    
+
     public void Build(string buildingName)
     {
         this.buildingName = buildingName;
@@ -57,15 +57,27 @@ public class BuildScript : MonoBehaviour
         else InstanceBuild();
     }
 
+    int newBuildingCost;
+
     void InstanceBuild()
     {
-        if (GameManagerScript.Instance.GetWorker() > 0)
+        newBuildingCost = newBuildingPrefab.GetComponent<BuildingScript>().resourceNeeded;
+        if (GameManagerScript.Instance.GetGold() >= newBuildingCost)
         {
-            nextBuilding = (GameObject)Instantiate(newBuildingPrefab, new Vector3(2, 0.5f, 0), Quaternion.identity);
-            SetEntityAvatar(gridScript.Instance.MakeBlueprint(buildingSize, buildingSize), nextBuilding);
-            SetConfirmButton();
-        } else
-            TextAnimManager.Instance.WarningNoWorker();
+            if (GameManagerScript.Instance.GetWorker() > 0)
+            {
+                nextBuilding = (GameObject)Instantiate(newBuildingPrefab, new Vector3(2, 0.5f, 0), Quaternion.identity);
+                SetEntityAvatar(gridScript.Instance.MakeBlueprint(buildingSize, buildingSize), nextBuilding);
+                SetConfirmButton();
+            }
+            else
+                TextAnimManager.Instance.WarningNoWorker();
+        }
+
+        else
+        {
+            TextAnimManager.Instance.WarningNoGold();
+        }
     }
 
 
@@ -98,6 +110,7 @@ public class BuildScript : MonoBehaviour
         nextBuilding.GetComponent<BuildingScript>().Build();
         //nextBuilding.GetComponent<BuildingScript>().Build(buildingName, category);
         GameManagerScript.Instance.SetWorker(-1);
+        GameManagerScript.Instance.SetGold(-newBuildingCost);
         BuildingManager.Instance.addBuilding(nextBuilding);
         nextBuilding = null;
     }
