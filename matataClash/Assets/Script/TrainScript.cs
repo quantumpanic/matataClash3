@@ -14,8 +14,8 @@ public class TrainScript : MonoBehaviour {
         closeButton.onClick.AddListener(() => CloseTrainPanel());
         Button trainFootmanButton = trainUI.transform.GetChild(1).GetComponent<Button>();
         trainFootmanButton.onClick.AddListener(() => TrainFootman());
-        Button trainQuerychanButton = trainUI.transform.GetChild(2).GetComponent<Button>();
-        trainQuerychanButton.onClick.AddListener(() => TrainQueryChan());
+        //Button trainQuerychanButton = trainUI.transform.GetChild(2).GetComponent<Button>();
+        //trainQuerychanButton.onClick.AddListener(() => TrainQueryChan());
     }
 
     public void Train() {        
@@ -25,10 +25,9 @@ public class TrainScript : MonoBehaviour {
     void TrainFootman(){
         if (GameManagerScript.Instance.GetMana() >= footmanCost){
             if (TroopsManager.Instance.isAllCampFull()){
-                print("camp is full");
                 TextAnimManager.Instance.WarningCampFull();
             } else {
-                print("train 1 footman");
+                TextAnimManager.Instance.CustomWarning("1 Footman Trained", Color.blue);
                 TroopsManager.Instance.addTroops(1);
                 GameManagerScript.Instance.SetMana(-footmanCost);
             }

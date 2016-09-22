@@ -729,6 +729,8 @@ public class GridEntity : MonoBehaviour, IArrangeable, IDimensions
         if (isBlueprint && inputManager.Instance.selectedEntity) gridScript.Instance.UpdateGridCursor();
         else if (isBlueprint) gridScript.Instance.ToggleGridCursor(false);
 
+        gridScript.Instance.entities.Remove(this);
+
         Destroy(gameObject);
     }
 

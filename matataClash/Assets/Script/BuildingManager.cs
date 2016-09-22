@@ -15,41 +15,48 @@ public class BuildingLimit {
 }
 [Serializable]
 public class BuildButton {
-	public Button buildBarrackButton;
-	public Button buildGoldMineButton;
-	public Button buildCampButton;
-	public Button buildWallButton;
-	public Button buildManaGeneratorButton;
+	public GameObject buildBarrackButton;
+	public GameObject buildGoldMineButton;
+	public GameObject buildCampButton;
+	public GameObject buildWallButton;
+	public GameObject buildManaGeneratorButton;
 }
 public class BuildingManager : MonoBehaviour {
 	public static BuildingManager Instance; 
 	public BuildingLimit buildingLimit;
 	public BuildButton buildButton;
 	public List<GameObject> buildingList = new List<GameObject>();
-	
+	public static int z=0;
     void Awake()
     {
         if (!Instance) Instance = this;
 	}
 
 	void Start(){
-		//if(SceneManager.Instance.isCombatMap){
-			Transform buildPanel = MapManager.Instance.gameObject.transform.GetChild(4).GetChild(1).GetChild(0);
-			buildButton.buildBarrackButton = buildPanel.GetChild(2).GetComponent<Button>();
-			buildButton.buildGoldMineButton = buildPanel.GetChild(0).GetComponent<Button>();
-			buildButton.buildCampButton = buildPanel.GetChild(3).GetComponent<Button>();
-			buildButton.buildWallButton = buildPanel.GetChild(4).GetComponent<Button>();
-			buildButton.buildManaGeneratorButton = buildPanel.GetChild(1).GetComponent<Button>();
-		//}
-
+		Transform buildPanel = MapManager.Instance.gameObject.transform.GetChild(4).GetChild(1).GetChild(0);
+		buildButton.buildBarrackButton = buildPanel.GetChild(2).gameObject;
+		buildButton.buildGoldMineButton = buildPanel.GetChild(0).gameObject;
+		buildButton.buildCampButton = buildPanel.GetChild(3).gameObject;
+		buildButton.buildWallButton = buildPanel.GetChild(4).gameObject;
+		buildButton.buildManaGeneratorButton = buildPanel.GetChild(1).gameObject;
 	}
 	
+	void Update(){
+		if(doCheckBattle){
+			if(buildingList.Count == 0)
+				SceneManager.Instance.GoToScene("Headquarters");
+		}
+	}
+
+	public bool doCheckBattle;
+
 	public void addBuilding (GameObject newBuilding){
+		
 		buildingList.Add(newBuilding);
 
 		int max = 0;
 		int cur = 0;
-		Button b = null;
+		GameObject b = null;
 		switch(newBuilding.GetComponent<BuildingScript>().buildingType){
 			case 1:	
 				max = buildingLimit.maxBarrack;
@@ -80,9 +87,22 @@ public class BuildingManager : MonoBehaviour {
 		//print(cur);
 		if(cur >= max)
 			if(b)
-				b.gameObject.SetActive(false);
+				b.SetActive(false);
 
 
 	}	
+
+	public void RemoveWallFromList(){
+		for(int n = (buildingList.Count-1); n >= 0; n--){
+			if(buildingList[n].GetComponent<BuildingScript>().buildingType == 4)
+				buildingList.RemoveAt(n);	
+		}
+		/*
+		foreach(GameObject b in buildingList){
+			if(b.GetComponent<BuildingScript>().buildingType == 4)
+				buildingList.Remove(b);
+		}
+		*/
+	}
 
 }
