@@ -46,13 +46,51 @@ public class SceneManager : MonoBehaviour
             currentScene = chosenScene;
         }
 
+        print("load");
         // load mapDataFile and open all panelsToOpen
         MapManager.Instance.LoadMapLayout(chosenScene.mapDataFile);
         FadeInPanels(chosenScene.panelsToOpen);
         isCombatMap = chosenScene.isCombatMap;
 
+        // eka
+        GameObject canvas = GameObject.Find("Manager Object");
+        GameObject deployButton = canvas.transform.GetChild(6).gameObject;
+        GameObject buildButton = canvas.transform.GetChild(4).gameObject;
+
+        if (chosenScene.isCombatMap){
+            deployButton.SetActive(true);
+            buildButton.SetActive(false);
+
+        } else {
+            deployButton.SetActive(false);
+            buildButton.SetActive(true);
+        }
         // if coming back to HQ from battle
         if (chosenScene.mapName == "Headquarters") Invoke("ReturnSurvivingTroopsToCamp", 0.1f);
+
+        //start combat
+        if (isCombatMap){
+            Invoke("CheckBattle",0.1f);
+            Invoke("RemoveWall", 0.1f);
+        }
+        else
+        {
+            Invoke("StopCheckBattle",0.1f);
+        }
+    }
+
+    void CheckBattle()
+    {
+        BuildingManager.Instance.doCheckBattle = true;
+    }
+
+    void StopCheckBattle()
+    {
+        BuildingManager.Instance.doCheckBattle = false;
+    }
+
+    void RemoveWall(){
+        BuildingManager.Instance.RemoveWallFromList();
     }
 
     public void ReturnSurvivingTroopsToCamp()

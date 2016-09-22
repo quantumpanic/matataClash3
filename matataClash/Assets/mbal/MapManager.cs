@@ -62,6 +62,8 @@ public class MapManager : MonoBehaviour
                 case 5:
                     buildingType = BuildScript.Instance.manaPrefab;
                     break;
+                default:
+                    break;
             }
 
             // add the avatar
@@ -137,6 +139,7 @@ public class MapEntity
 
     public static MapEntity CreateFromGrid(GridEntity ge)
     {
+        if(!ge.avatar) return null;
         MapEntity me = new MapEntity();
         me.Index = ge.Index;
         me.entityID = ge.avatar.GetComponent<BuildingScript>().buildingType;

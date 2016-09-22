@@ -82,18 +82,24 @@ public class BuildingScript : MonoBehaviour, IDamageableTarget
 
     void Start()
     {
+        
         if (isBuiltBeforeStart)
-        {
+        {   
+            //print("start");
             var ge = gridScript.Instance.MakeEntity(size, size, xPos, yPos);
             BuildScript.Instance.SetEntityAvatar(ge, gameObject);
             BuildingManager.Instance.addBuilding(gameObject);
+            BuildingManager.z++;
+            print(BuildingManager.z);
 
             switch (buildingType) {
                 case 2:
                     TroopsManager.Instance.addCamp(gameObject);
                     break;
                 case 3:
-                    gameObject.GetComponent<ResourceCollectorScript>().ProduceResources();
+                case 5:
+                    if(!SceneManager.Instance.isCombatMap)
+                        gameObject.GetComponent<ResourceCollectorScript>().ProduceResources();
                     break;
                 default:
                     break;
@@ -115,13 +121,13 @@ public class BuildingScript : MonoBehaviour, IDamageableTarget
     void Update()
     {
         //not building and  selected
-        if (!isBuilding && (inputManager.Instance.selectedEntity.avatar == gameObject) && !inputManager.Instance.selectedEntity.isBlueprint)
-        {
-            uiCanvas.gameObject.SetActive(true);
-        }
-        else
-        {
-            uiCanvas.gameObject.SetActive(false);
+        if(!SceneManager.Instance.isCombatMap) {
+            if (!isBuilding && (inputManager.Instance.selectedEntity.avatar == gameObject) && !inputManager.Instance.selectedEntity.isBlueprint)
+            {
+                uiCanvas.gameObject.SetActive(true);
+            } else {
+                uiCanvas.gameObject.SetActive(false);
+            }
         }
 
         if (isBuilding)
@@ -158,6 +164,7 @@ public class BuildingScript : MonoBehaviour, IDamageableTarget
 
             }
         }
+
     }
 
 
@@ -219,6 +226,9 @@ public class BuildingScript : MonoBehaviour, IDamageableTarget
 
     public void OnDestroy()
     {
+        print("f");
+        BuildingManager.Instance.buildingList.Remove(gameObject);
+        BuildingManager.z =0;
         // trigger for entity destroy
         if (destroyEvt != null) destroyEvt(gameObject);
     }

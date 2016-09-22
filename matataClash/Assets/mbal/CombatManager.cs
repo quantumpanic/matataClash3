@@ -111,6 +111,7 @@ public class DamageCalculator
 
     public void Die()
     {
+        BuildingManager.Instance.buildingList.Remove(entity.body);
         GameObject.Destroy(entity.body);
     }
 
