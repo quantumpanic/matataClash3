@@ -12,8 +12,9 @@ public class DetectionPriority : MonoBehaviour
     // Use this for initialization
     void Start()
     {
+		aiRig.AI.WorkingMemory.SetItem<GameObject>("thisObj", aiRig.gameObject);
 		ResetMemory(true);
-        InvokeRepeating("CheckMemory", 0, .5f);
+        InvokeRepeating("CheckMemory", 0, .1f);
     }
 
     public float closestDist;
@@ -22,7 +23,7 @@ public class DetectionPriority : MonoBehaviour
     {
         sensor = aiRig.AI.Senses.GetSensor("KnightVisual");
         sensor.Sense(aspectName, RAIN.Perception.Sensors.VisualSensor.MatchType.ALL);
-		GameObject nearestTarget = null;
+		GameObject nearestTarget = aiRig.gameObject;
 		closestDist = 999999;
 
         foreach (RAIN.Entities.Aspects.RAINAspect aspect in sensor.Matches)
@@ -48,7 +49,9 @@ public class DetectionPriority : MonoBehaviour
 
     void CheckMemory()
     {
+		aiRig.AI.WorkingMemory.SetItem<GameObject>("targetPos", null);
         doDetectClosest = aiRig.AI.WorkingMemory.GetItem<bool>("chkDist");
+        DetectClosestAspect("BuildingVisualAspect");
     }
 
     // Update is called once per frame

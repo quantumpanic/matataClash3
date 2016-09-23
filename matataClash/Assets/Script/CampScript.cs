@@ -27,7 +27,8 @@ public class CampScript : MonoBehaviour {
 		capacityText.text = a;
 
 		if (!gameObject.GetComponent<BuildingScript>().isBuilding && !gameObject.GetComponent<BuildingScript>().isUpgrading &&  
-				(inputManager.Instance.selectedEntity.avatar == gameObject) && !inputManager.Instance.selectedEntity.isBlueprint) {
+				(inputManager.Instance.selectedEntity.avatar == gameObject) && !inputManager.Instance.selectedEntity.isBlueprint
+				&& !SceneManager.Instance.isCombatMap) {
 			capacityText.gameObject.SetActive(true);
 		} else {
 			capacityText.gameObject.SetActive(false);
