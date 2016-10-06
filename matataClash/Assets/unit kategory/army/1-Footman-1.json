@@ -1,0 +1,20 @@
+{
+  "unitType": 1,
+  "name": "Footman",
+  "level": 1,
+  "maxHitpoint": 150.0,
+  "laboratoryLevelRequired": 0,
+  "barrackLevelRequired": 1,
+  "damagePerAttack": 5.0,
+  "researchTime": 0.0,
+  "trainingTime": 20.0,
+  "movemendSpeed": 5.0,
+  "attackSpeed": 1.0,
+  "range": 0.0,
+  "trainingCost": 50,
+  "researchCost": 0,
+  "hausingSpace": 1,
+  "preferredTarget": 0,
+  "attackType": 0,
+  "description": "Standard melee troop."
+}

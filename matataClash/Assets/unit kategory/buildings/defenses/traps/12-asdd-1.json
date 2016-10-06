@@ -1,0 +1,17 @@
+{
+  "unitType": 12,
+  "name": "asdd",
+  "level": 1,
+  "damage": 12.0,
+  "triggerRadius": 1212.0,
+  "damageRadius": 12.0,
+  "buildCost": 12,
+  "buildTime": 1212.0,
+  "reArmCost": 12,
+  "damageType": 0,
+  "unitTypeTarget": 0,
+  "favoriteTargeted": 0,
+  "experienceGained": 12,
+  "townHallLevelRequired": 1,
+  "description": "asd"
+}

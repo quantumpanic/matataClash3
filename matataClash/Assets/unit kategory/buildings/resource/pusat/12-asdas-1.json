@@ -1,0 +1,37 @@
+{
+  "unitType": 12,
+  "name": "asdas",
+  "level": 1,
+  "maxHitpoint": 12.0,
+  "buildCost": 12,
+  "buildTime": 12.0,
+  "experienceGained": 12,
+  "nameFile1": [
+    "zz"
+  ],
+  "capacity1": [
+    1
+  ],
+  "maxLevel1": [
+    1
+  ],
+  "nameFile2": [
+    "zz"
+  ],
+  "capacity2": [
+    1
+  ],
+  "maxLevel2": [
+    1
+  ],
+  "nameFile3": [
+    "zz"
+  ],
+  "capacity3": [
+    1
+  ],
+  "maxLevel3": [
+    1
+  ],
+  "description": "asdasd"
+}

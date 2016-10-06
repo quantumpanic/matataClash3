@@ -1,0 +1,12 @@
+{
+  "unitType": 2,
+  "name": "Camp",
+  "level": 1,
+  "maxHitpoint": 250.0,
+  "buildCost": 100,
+  "buildTime": 60.0,
+  "experienceGained": 50,
+  "townHallLevelRequired": 1,
+  "description": "Stores trained troops.",
+  "troopsCapacity": 20
+}

@@ -1,0 +1,15 @@
+{
+  "unitType": 12,
+  "name": "asd",
+  "level": 1,
+  "buildCost": 12,
+  "buildTime": 12.0,
+  "experienceGained": 12,
+  "boostCost": 12,
+  "capacity": 12,
+  "productionRate": 12,
+  "maxHitpoint": 12.0,
+  "catchUpPoint": 12.0,
+  "townHallLevelRequired": 1,
+  "description": "ads"
+}

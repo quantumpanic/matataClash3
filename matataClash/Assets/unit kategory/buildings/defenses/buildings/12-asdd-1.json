@@ -1,0 +1,16 @@
+{
+  "unitType": 12,
+  "name": "asdd",
+  "level": 1,
+  "damage": 12.0,
+  "maxHitpoint": 12.0,
+  "buildCost": 12,
+  "buildTime": 1212.0,
+  "range": 12.0,
+  "damageType": 0,
+  "unitTypeTarget": 0,
+  "attackSpeed": 12.0,
+  "experienceGained": 12,
+  "townHallLevelRequired": 1,
+  "description": "asd"
+}

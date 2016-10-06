@@ -1,0 +1,14 @@
+{
+  "unitType": 3,
+  "name": "Gold Mine",
+  "level": 1,
+  "buildCost": 100,
+  "buildTime": 35.0,
+  "experienceGained": 25,
+  "boostCost": 5,
+  "capacity": 500,
+  "productionRate": 1,
+  "maxHitpoint": 220.0,
+  "townHallLevelRequired": 1,
+  "description": "Gathers gold."
+}

@@ -1,0 +1,43 @@
+{
+  "unitType": 0,
+  "name": "Town Hall",
+  "level": 1,
+  "maxHitpoint": 500.0,
+  "buildCost": 500,
+  "buildTime": 300.0,
+  "experienceGained": -1,
+  "nameFile1": [
+    "Gold Mine",
+    "Mana Generator"
+  ],
+  "capacity1": [
+    2,
+    2
+  ],
+  "maxLevel1": [
+    2,
+    2
+  ],
+  "nameFile2": [
+    "Wall"
+  ],
+  "capacity2": [
+    10
+  ],
+  "maxLevel2": [
+    1
+  ],
+  "nameFile3": [
+    "Barracks",
+    "Camp"
+  ],
+  "capacity3": [
+    1,
+    1
+  ],
+  "maxLevel3": [
+    2,
+    2
+  ],
+  "description": "Defend this building at all costs."
+}

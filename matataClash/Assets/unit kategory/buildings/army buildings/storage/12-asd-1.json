@@ -1,0 +1,12 @@
+{
+  "unitType": 12,
+  "name": "asd",
+  "level": 1,
+  "maxHitpoint": 12.0,
+  "buildCost": 12,
+  "buildTime": 12.0,
+  "experienceGained": 12,
+  "townHallLevelRequired": 1,
+  "description": "asd",
+  "troopsCapacity": 12
+}
