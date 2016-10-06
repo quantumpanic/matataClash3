@@ -46,7 +46,6 @@ public class SceneManager : MonoBehaviour
             currentScene = chosenScene;
         }
 
-        print("load");
         // load mapDataFile and open all panelsToOpen
         MapManager.Instance.LoadMapLayout(chosenScene.mapDataFile);
         FadeInPanels(chosenScene.panelsToOpen);
@@ -72,6 +71,7 @@ public class SceneManager : MonoBehaviour
         if (isCombatMap){
             Invoke("CheckBattle",0.1f);
             Invoke("RemoveWall", 0.1f);
+            Invoke("UpdateNavMesh", 0.1f);
         }
         else
         {
@@ -91,6 +91,11 @@ public class SceneManager : MonoBehaviour
 
     void RemoveWall(){
         BuildingManager.Instance.RemoveWallFromList();
+    }
+
+    void UpdateNavMesh()
+    {
+        gridScript.Instance.LateGenerateNavMesh();
     }
 
     public void ReturnSurvivingTroopsToCamp()

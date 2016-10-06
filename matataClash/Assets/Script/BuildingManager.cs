@@ -44,7 +44,7 @@ public class BuildingManager : MonoBehaviour {
 	void Update(){
 		if(doCheckBattle){
 			if(buildingList.Count == 0)
-				SceneManager.Instance.GoToScene("Headquarters");
+				SceneManager.Instance.GoToScene("BattleResult");
 		}
 	}
 

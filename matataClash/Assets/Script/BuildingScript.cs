@@ -226,7 +226,6 @@ public class BuildingScript : MonoBehaviour, IDamageableTarget
 
     public void OnDestroy()
     {
-        print("f");
         BuildingManager.Instance.buildingList.Remove(gameObject);
         BuildingManager.z =0;
         // trigger for entity destroy

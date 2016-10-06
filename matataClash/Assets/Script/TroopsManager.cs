@@ -61,7 +61,7 @@ public class TroopsManager : MonoBehaviour {
 			foreach (GameObject camp in campList) {
 				if (!camp.GetComponent<CampScript>().isCampFull()){
 					//troops masukan ke camp
-					GameObject t = Instantiate(newTroops,Vector3.one * 1000,Quaternion.identity) as GameObject;
+					GameObject t = Instantiate(newTroops,new Vector3(1000,0,1000),Quaternion.identity) as GameObject;
 					camp.GetComponent<CampScript>().addTroops(t);
 					t.transform.GetChild(0).GetComponent<TroopScript>().campIndex = n;
 					UpdateTroops();
