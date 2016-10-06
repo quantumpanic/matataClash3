@@ -1,0 +1,20 @@
+{
+  "unitType": 12,
+  "name": "asd",
+  "level": 1,
+  "maxHitpoint": 12.0,
+  "laboratoryLevelRequired": 0,
+  "barrackLevelRequired": 1,
+  "damagePerAttack": 12.0,
+  "researchTime": 12.0,
+  "trainingTime": 12.0,
+  "movemendSpeed": 12.0,
+  "attackSpeed": 12.0,
+  "range": 12.0,
+  "trainingCost": 12,
+  "researchCost": 12,
+  "hausingSpace": 12,
+  "preferredTarget": 0,
+  "attackType": 0,
+  "description": "asd"
+}

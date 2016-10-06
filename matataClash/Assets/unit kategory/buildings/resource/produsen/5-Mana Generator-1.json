@@ -1,0 +1,14 @@
+{
+  "unitType": 5,
+  "name": "Mana Generator",
+  "level": 1,
+  "buildCost": 100,
+  "buildTime": 45.0,
+  "experienceGained": 40,
+  "boostCost": 8,
+  "capacity": 250,
+  "productionRate": 1,
+  "maxHitpoint": 180.0,
+  "townHallLevelRequired": 1,
+  "description": "Gathers mana."
+}

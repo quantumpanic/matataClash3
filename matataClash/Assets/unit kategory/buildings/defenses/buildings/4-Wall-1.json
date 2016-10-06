@@ -1,0 +1,16 @@
+{
+  "unitType": 4,
+  "name": "Wall",
+  "level": 1,
+  "damage": 0.0,
+  "maxHitpoint": 100.0,
+  "buildCost": 25,
+  "buildTime": 0.0,
+  "range": 0.0,
+  "damageType": 0,
+  "unitTypeTarget": 0,
+  "attackSpeed": 0.0,
+  "experienceGained": 0,
+  "townHallLevelRequired": 1,
+  "description": "Blocks intruders."
+}

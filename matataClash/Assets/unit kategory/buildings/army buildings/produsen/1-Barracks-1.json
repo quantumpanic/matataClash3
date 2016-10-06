@@ -1,0 +1,16 @@
+{
+  "unitType": 1,
+  "name": "Barracks",
+  "level": 1,
+  "maxHitpoint": 250.0,
+  "buildCost": 100,
+  "buildTime": 60.0,
+  "experienceGained": 50,
+  "townHallLevelRequired": 1,
+  "description": "Trains footmen.",
+  "boostCost": 5,
+  "maximumUnitQueueLength": 20,
+  "maximumUnitQueueItems": [
+    "Footman"
+  ]
+}
