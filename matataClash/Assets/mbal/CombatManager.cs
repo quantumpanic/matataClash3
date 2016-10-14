@@ -77,6 +77,7 @@ public interface IDamageable
 
 public interface IDamager
 {
+    GameObject body { get; set; }
     float baseDmg { get; set; }
     CombatManager combatManager { get; }
 }

@@ -167,8 +167,6 @@ public class BuildingScript : MonoBehaviour, IDamageableTarget
 
     }
 
-
-
     public void Upgrade()
     {
         if (!isUpgrading && GameManagerScript.Instance.GetWorker() > 0)
