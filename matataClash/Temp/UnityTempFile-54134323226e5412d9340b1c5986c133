@@ -85,6 +85,7 @@
 'Assets/Script/Battle/DefenderEnvironment.cs'
 'Assets/Script/Battle/HPBar.cs'
 'Assets/Script/Battle/Projectile.cs'
+'Assets/Script/Battle/RangedTroopScript.cs'
 'Assets/Script/Battle/Spawn.cs'
 'Assets/Script/Battle/TroopScript.cs'
 'Assets/Script/BuildScript.cs'

@@ -52,6 +52,7 @@
      <Compile Include="Assets\Script\Battle\DefenderEnvironment.cs" />
      <Compile Include="Assets\Script\Battle\HPBar.cs" />
      <Compile Include="Assets\Script\Battle\Projectile.cs" />
+     <Compile Include="Assets\Script\Battle\RangedTroopScript.cs" />
      <Compile Include="Assets\Script\Battle\Spawn.cs" />
      <Compile Include="Assets\Script\Battle\TroopScript.cs" />
      <Compile Include="Assets\Script\BuildScript.cs" />
