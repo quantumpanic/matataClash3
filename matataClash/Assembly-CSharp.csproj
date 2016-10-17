@@ -61,6 +61,7 @@
      <Compile Include="Assets\Script\CampScript.cs" />
      <Compile Include="Assets\Script\DataReader.cs" />
      <Compile Include="Assets\Script\GameManagerScript.cs" />
+     <Compile Include="Assets\Script\ObjectCopier.cs" />
      <Compile Include="Assets\Script\ResourceCollectorScript.cs" />
      <Compile Include="Assets\Script\ResourceDisplayScript.cs" />
      <Compile Include="Assets\Script\TownHallScript.cs" />

@@ -26,7 +26,7 @@ public class BuildingManager : MonoBehaviour {
 	public BuildingLimit buildingLimit;
 	public BuildButton buildButton;
 	public List<GameObject> buildingList = new List<GameObject>();
-	public static int z=0;
+//	public static int z=0;
     void Awake()
     {
         if (!Instance) Instance = this;
@@ -58,23 +58,23 @@ public class BuildingManager : MonoBehaviour {
 		int cur = 0;
 		GameObject b = null;
 		switch(newBuilding.GetComponent<BuildingScript>().buildingType){
-			case 1:	
+			case BuildingScript.BuildingType.Barrack:	
 				max = buildingLimit.maxBarrack;
 				b = buildButton.buildBarrackButton;
 				break;
-			case 2:	
+			case BuildingScript.BuildingType.Camp:	
 				max = buildingLimit.maxCamp;
 				b = buildButton.buildCampButton;
 				break;
-			case 3:	
+			case BuildingScript.BuildingType.GoldMine:	
 				max = buildingLimit.maxGoldMine;
 				b = buildButton.buildGoldMineButton;
 				break;			
-			case 4:	
+			case BuildingScript.BuildingType.Wall:	
 				max = buildingLimit.maxWall;
 				b = buildButton.buildWallButton;
 				break;
-			case 5:	
+			case BuildingScript.BuildingType.ManaGenerator:	
 				max = buildingLimit.maxManaGenerator;
 				b = buildButton.buildManaGeneratorButton;
 				break;
@@ -94,7 +94,7 @@ public class BuildingManager : MonoBehaviour {
 
 	public void RemoveWallFromList(){
 		for(int n = (buildingList.Count-1); n >= 0; n--){
-			if(buildingList[n].GetComponent<BuildingScript>().buildingType == 4)
+			if(buildingList[n].GetComponent<BuildingScript>().buildingType == BuildingScript.BuildingType.Wall)
 				buildingList.RemoveAt(n);	
 		}
 		/*

@@ -9,29 +9,59 @@ public class DataReader : MonoBehaviour {
         if (!Instance) Instance = this;
     }
 	
-	//public List<TestJSON> testList = new List<TestJSON>();
-	public List<ArmyBuilding> armyBuildingList = new List<ArmyBuilding>();
-	public List<ResourceBuilding> resourceBuildingList = new List<ResourceBuilding>();
+	public List<ArmyProducerBuilding> armyProducerBuildingList = new List<ArmyProducerBuilding>();
+	public List<ArmyStorageBuilding> armyStorageBuildingList = new List<ArmyStorageBuilding>();
+	public List<DefenseBuilding> defenseBuildingList = new List<DefenseBuilding>();
+	public List<TrapBuilding> trapBuildingList = new List<TrapBuilding>();
+	public List<ResourceProducerBuilding> resourceProducerBuildingList = new List<ResourceProducerBuilding>();
+	public List<ResourceStorageBuilding> resourceStorageBuildingList = new List<ResourceStorageBuilding>();
+	public List<TownHallBuilding> townHallBuildingList = new List<TownHallBuilding>();
+	public List<Army> armyList = new List<Army>();
 	
 	// Use this for initialization
 	void Start(){
-		foreach(var asset in Resources.LoadAll<TextAsset>("data/resource buildings")){
-			ResourceBuilding t = ResourceBuilding.CreateFromJSON(asset.text);
-			resourceBuildingList.Add(t);
+		foreach(var asset in Resources.LoadAll<TextAsset>("unit kategory/buildings/army buildings/produsen")){
+			ArmyProducerBuilding b = ArmyProducerBuilding.CreateFromJSON(asset.text);
+			armyProducerBuildingList.Add(b);
+		}
+		foreach(var asset in Resources.LoadAll<TextAsset>("unit kategory/buildings/army buildings/storage")){
+			ArmyStorageBuilding b = ArmyStorageBuilding.CreateFromJSON(asset.text);
+			armyStorageBuildingList.Add(b);
+		}
+		foreach(var asset in Resources.LoadAll<TextAsset>("unit kategory/buildings/defenses/buildings")){
+			DefenseBuilding b = DefenseBuilding.CreateFromJSON(asset.text);
+			defenseBuildingList.Add(b);
+		}
+		foreach(var asset in Resources.LoadAll<TextAsset>("unit kategory/buildings/defenses/traps")){
+			TrapBuilding b = TrapBuilding.CreateFromJSON(asset.text);
+			trapBuildingList.Add(b);
+		}
+		foreach(var asset in Resources.LoadAll<TextAsset>("unit kategory/buildings/resource/produsen")){
+			ResourceProducerBuilding t = ResourceProducerBuilding.CreateFromJSON(asset.text);
+			resourceProducerBuildingList.Add(t);
+		}
+		foreach(var asset in Resources.LoadAll<TextAsset>("unit kategory/buildings/resource/storage")){
+			ResourceStorageBuilding t = ResourceStorageBuilding.CreateFromJSON(asset.text);
+			resourceStorageBuildingList.Add(t);
+		}
+		foreach(var asset in Resources.LoadAll<TextAsset>("unit kategory/buildings/resource/pusat")){
+			TownHallBuilding t = TownHallBuilding.CreateFromJSON(asset.text);
+			townHallBuildingList.Add(t);
+		}
+		foreach(var asset in Resources.LoadAll<TextAsset>("unit kategory/army")){
+			Army a = Army.CreateFromJSON(asset.text);
+			armyList.Add(a);
 		}
 
-		foreach(var asset in Resources.LoadAll<TextAsset>("data/army buildings")){
-			ArmyBuilding t = ArmyBuilding.CreateFromJSON(asset.text);
-			armyBuildingList.Add(t);
-		}
-
-		foreach (ArmyBuilding t in armyBuildingList){
-			print(t.troopCapacity);
-		}
-
-		foreach (ResourceBuilding t in resourceBuildingList){
-			print(t.buildTime);
-		}
+		Debug.Log(
+			armyProducerBuildingList.Count+"  "+
+			armyStorageBuildingList.Count+"  "+
+			defenseBuildingList.Count+"  "+
+			trapBuildingList.Count+"  "+
+			resourceProducerBuildingList.Count+"  "+
+			resourceStorageBuildingList.Count+"  "+
+			armyList.Count
+		);
 	}
 
 }
@@ -41,25 +71,24 @@ public class Army {
 	public int unitType;
 	public string name;
 	public int level;
-	public int damagePerSecond;
-	public int damagePerAttack;
-	public int hitpoint;
+	public float damagePerAttack;
+	public float maxHitpoint;
 	public int trainingCost;
 	public int researchCost;
 	public int laboratoryLevelRequired;
-	public long researchTime;
+	public float researchTime;
 	public int preferredTarget;
 	public int attackType;
 	public int housingSpace;
-	public long trainingTime;
-	public int movementSpeed;
+	public float trainingTime;
+	public float movementSpeed;
 	public float attackSpeed;
 	public int barrackLevelRequired;
 	public float range;
 	public string description;
 
-	public void CreateFromJSON(string jsonString){
-		JsonUtility.FromJson<Army>(jsonString);
+	public static Army CreateFromJSON(string jsonString){
+		return JsonUtility.FromJson<Army>(jsonString);
 	}
 
 }
@@ -69,50 +98,94 @@ public class BuildingBase {
 	public int unitType;
 	public string name;
 	public int level;
-	public int hitpoint;
+	public float maxHitpoint;
 	public int buildCost;
-	public int buildTime;
+	public float buildTime;
 	public int experienceGained;
 	public int townHallLevelRequired;
-	public int townHallLevel;
-	public int numberAvailable;
-	public int size;
 	public string description;
 }
 
 [System.Serializable]
-public class ArmyBuilding : BuildingBase {
-	public int troopCapacity;
+public class ArmyProducerBuilding : BuildingBase {
+	public int boostCost;
+	public int maximumUnitQueueLength;
+	public string[] maximumUnitQueueItems;
 
-	public static ArmyBuilding CreateFromJSON(string jsonString){
-		return JsonUtility.FromJson<ArmyBuilding>(jsonString);
+	public static ArmyProducerBuilding CreateFromJSON(string jsonString){
+		return JsonUtility.FromJson<ArmyProducerBuilding>(jsonString);
 	}
 }
 
 [System.Serializable]
-public class ResourceBuilding : BuildingBase {
+public class ArmyStorageBuilding : BuildingBase {
+	public int troopsCapacity;
+
+	public static ArmyStorageBuilding CreateFromJSON(string jsonString){
+		return JsonUtility.FromJson<ArmyStorageBuilding>(jsonString);
+	}
+}
+
+[System.Serializable]
+public class DefenseBuilding : BuildingBase {
+	public float damage;
+	public float range;
+	public int damageType;
+	public int unitTypeTarget;
+	public float attackSpeed;
+
+	public static DefenseBuilding CreateFromJSON(string jsonString){
+		return JsonUtility.FromJson<DefenseBuilding>(jsonString);
+	}
+}
+
+[System.Serializable]
+public class TrapBuilding : BuildingBase {
+	public float damage;
+	public float triggerRadius;
+	public float damageRadius;
+	public int reArmCost;
+	public int damageType;
+	public int unitTypeTarget;
+	public int favoriteTarget;
+
+	public static TrapBuilding CreateFromJSON(string jsonString){
+		TrapBuilding t = JsonUtility.FromJson<TrapBuilding>(jsonString);
+		t.maxHitpoint = 0;
+		return t;
+	}
+}
+
+[System.Serializable]
+public class ResourceProducerBuilding : BuildingBase {
 	public int boostCost;
 	public int capacity;
 	public int productionRate;
-	public long timeToFill;
-	public int catchUpPoint;
 	
-	public static ResourceBuilding CreateFromJSON(string jsonString){
-		return JsonUtility.FromJson<ResourceBuilding>(jsonString);
+	public static ResourceProducerBuilding CreateFromJSON(string jsonString){
+		return JsonUtility.FromJson<ResourceProducerBuilding>(jsonString);
 	}
 }
 
 [System.Serializable]
-public abstract class T {
-	public int Level; 
+public class ResourceStorageBuilding : BuildingBase {
+	public int storageCapacity;
+	
+	public static ResourceStorageBuilding CreateFromJSON(string jsonString){
+		return JsonUtility.FromJson<ResourceStorageBuilding>(jsonString);
+	}
 }
 
 [System.Serializable]
-public class TestJSON : T {
-
-	public static TestJSON C(string a){
-		return JsonUtility.FromJson<TestJSON>(a);
+public class TownHallBuilding : BuildingBase {
+	/*
+	BELUM
+	*/
+	public static TownHallBuilding CreateFromJSON(string jsonString){
+		return JsonUtility.FromJson<TownHallBuilding>(jsonString);
 	}
 }
+
+
 
 
