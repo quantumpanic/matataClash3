@@ -44,23 +44,23 @@ public class MapManager : MonoBehaviour
             GameObject buildingType = null;
             switch (ent.entityID)
             {
-                case 0:
+                case (int)BuildingScript.BuildingType.TownHall:
                     buildingType = BuildScript.Instance.townHallPrefab;
                     break;
-                case 1:
+                case (int)BuildingScript.BuildingType.Barrack:
                     buildingType = BuildScript.Instance.barrackPrefab;
                     break;
-                case 2:
+                case (int)BuildingScript.BuildingType.Camp:
                     buildingType = BuildScript.Instance.campPrefab;
                     break;
-                case 3:
+                case (int)BuildingScript.BuildingType.GoldMine:
                     buildingType = BuildScript.Instance.goldMinePrefab;
                     break;
-                case 4:
-                    buildingType = BuildScript.Instance.wallPrefab;
-                    break;
-                case 5:
+                case (int)BuildingScript.BuildingType.ManaGenerator:
                     buildingType = BuildScript.Instance.manaPrefab;
+                    break;
+                case (int)BuildingScript.BuildingType.Wall:
+                    buildingType = BuildScript.Instance.wallPrefab;
                     break;
                 default:
                     break;
@@ -142,7 +142,7 @@ public class MapEntity
         if(!ge.avatar) return null;
         MapEntity me = new MapEntity();
         me.Index = ge.Index;
-        me.entityID = ge.avatar.GetComponent<BuildingScript>().buildingType;
+        me.entityID = (int)ge.avatar.GetComponent<BuildingScript>().buildingType;
 
         return me;
     }

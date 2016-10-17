@@ -15,38 +15,44 @@ public class WallScript : MonoBehaviour {
 	public void CheckNeighbor(){
 		GridEntity ge = gameObject.GetComponent<BuildingScript>().entity;
 		GridObject go = gridScript.Instance.StrictTileLookup(ge.MainAnchor, 1 , 1);
-		GridObject top = gridScript.Instance.StrictTileLookup(go, 0, 2);
+		GameObject obj;
+
+		GridObject top = gridScript.Instance.StrictTileLookup(go, 0, 2);		
 		if(top && top.entity){
-			if(top.entity.GetComponent<GridEntity>().avatar.GetComponent<BuildingScript>().buildingType == 4){
+			obj = top.entity.GetComponent<GridEntity>().avatar;
+			if(obj.GetComponent<BuildingScript>().buildingType == BuildingScript.BuildingType.Wall){
 				upWall.SetActive(true);
-				top.entity.GetComponent<GridEntity>().avatar.GetComponent<WallScript>().Adapt(2);
+				obj.GetComponent<WallScript>().Adapt(2);
 			}
 		}else
 			upWall.SetActive(false);
 
 		GridObject bottom = gridScript.Instance.StrictTileLookup(go, 0, -2);
 		if(bottom && bottom.entity){
-			if(bottom.entity.GetComponent<GridEntity>().avatar.GetComponent<BuildingScript>().buildingType == 4){
+			obj = bottom.entity.GetComponent<GridEntity>().avatar;
+			if(obj.GetComponent<BuildingScript>().buildingType == BuildingScript.BuildingType.Wall){
 				downWall.SetActive(true);
-				bottom.entity.GetComponent<GridEntity>().avatar.GetComponent<WallScript>().Adapt(1);
+				obj.GetComponent<WallScript>().Adapt(1);
 			}
 		}else
 			downWall.SetActive(false);
 
 		GridObject right = gridScript.Instance.StrictTileLookup(go, 2, 0);
 		if(right && right.entity){
-			if(right.entity.GetComponent<GridEntity>().avatar.GetComponent<BuildingScript>().buildingType == 4){
+			obj = right.entity.GetComponent<GridEntity>().avatar;
+			if(obj.GetComponent<BuildingScript>().buildingType == BuildingScript.BuildingType.Wall){
 				rightWall.SetActive(true);
-				right.entity.GetComponent<GridEntity>().avatar.GetComponent<WallScript>().Adapt(4);
+				obj.GetComponent<WallScript>().Adapt(4);
 			}
 		}else
 			rightWall.SetActive(false);
 
 		GridObject left = gridScript.Instance.StrictTileLookup(go, -2, 0);
 		if(left && left.entity){
-			if(left.entity.GetComponent<GridEntity>().avatar.GetComponent<BuildingScript>().buildingType == 4){
+			obj = left.entity.GetComponent<GridEntity>().avatar;
+			if(obj.GetComponent<BuildingScript>().buildingType == BuildingScript.BuildingType.Wall){
 				leftWall.SetActive(true);
-				left.entity.GetComponent<GridEntity>().avatar.GetComponent<WallScript>().Adapt(3);
+				obj.GetComponent<WallScript>().Adapt(3);
 			}
 		}else
 			leftWall.SetActive(false);

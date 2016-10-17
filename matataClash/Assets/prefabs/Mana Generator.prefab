@@ -1026,13 +1026,23 @@ MonoBehaviour:
   isBuilding: 0
   isUpgrading: 0
   resourceNeeded: 50
-  buildingType: 5
   isBuiltBeforeStart: 0
   size: 5
   xPos: 10
   yPos: 0
   maxHitpoint: 100
   curHitpoint: 0
+  buildingType: 4
+  buildingBase:
+    unitType: 0
+    name: 
+    level: 0
+    maxHitpoint: 0
+    buildCost: 0
+    buildTime: 0
+    experienceGained: 0
+    townHallLevelRequired: 0
+    description: 
 --- !u!114 &11466942
 MonoBehaviour:
   m_ObjectHideFlags: 1

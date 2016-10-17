@@ -108,7 +108,6 @@ public class BuildScript : MonoBehaviour
         if (!inputManager.Instance.selectedEntity.Root()) return;
         confirmUI.SetActive(false);
         nextBuilding.GetComponent<BuildingScript>().Build();
-        //nextBuilding.GetComponent<BuildingScript>().Build(buildingName, category);
         GameManagerScript.Instance.SetWorker(-1);
         GameManagerScript.Instance.SetGold(-newBuildingCost);
         BuildingManager.Instance.addBuilding(nextBuilding);

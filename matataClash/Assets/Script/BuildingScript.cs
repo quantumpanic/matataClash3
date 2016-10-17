@@ -2,6 +2,7 @@
 using System.Collections;
 using UnityEngine.UI;
 using System.Collections.Generic;
+using System.Linq;
 
 public class BuildingScript : MonoBehaviour, IDamageableTarget
 {
@@ -21,7 +22,7 @@ public class BuildingScript : MonoBehaviour, IDamageableTarget
     string minutes;
     string seconds;
     public int resourceNeeded;
-    public int buildingType;
+    //public int buildingType;
     public bool isBuiltBeforeStart;
     public int size;
     public int xPos;
@@ -30,6 +31,12 @@ public class BuildingScript : MonoBehaviour, IDamageableTarget
     public float curHitpoint;
     public GridEntity entity { get; set; }
     public TargetModule targetModule { get; set; }
+    //public BuildingData buidingData
+    [HideInInspector]
+    public enum BuildingType {TownHall, Barrack, Camp, GoldMine, ManaGenerator, Wall};
+    public BuildingType buildingType;
+    //public BuildingCategory buildingCategory;
+    public BuildingBase buildingBase;
 
 
     // Use this for initialization
@@ -42,10 +49,12 @@ public class BuildingScript : MonoBehaviour, IDamageableTarget
         uiCanvas = transform.GetChild(0).gameObject;
 
         damageCalculator = new DamageCalculator(this);
+
+        //buidingData = new BuildingData(1);
+        ReadDataBuilding();        
     }
 
-    public float curHP
-    {
+    public float curHP    {
         get
         {
             return curHitpoint;
@@ -55,8 +64,7 @@ public class BuildingScript : MonoBehaviour, IDamageableTarget
             curHitpoint = value;
         }
     }
-    public float maxHP
-    {
+    public float maxHP    {
         get
         {
             return maxHitpoint;
@@ -67,8 +75,7 @@ public class BuildingScript : MonoBehaviour, IDamageableTarget
         }
     }
 
-    public GameObject body
-    {
+    public GameObject body    {
         get
         {
             return gameObject;
@@ -89,15 +96,16 @@ public class BuildingScript : MonoBehaviour, IDamageableTarget
             var ge = gridScript.Instance.MakeEntity(size, size, xPos, yPos);
             BuildScript.Instance.SetEntityAvatar(ge, gameObject);
             BuildingManager.Instance.addBuilding(gameObject);
-            BuildingManager.z++;
-            print(BuildingManager.z);
+      //      BuildingManager.z++;
+      //      print(BuildingManager.z);
 
             switch (buildingType) {
-                case 2:
+                case BuildingType.Camp:
                     TroopsManager.Instance.addCamp(gameObject);
                     break;
-                case 3:
-                case 5:
+                case BuildingType.GoldMine:
+                case BuildingType.ManaGenerator:
+                    //
                     if(!SceneManager.Instance.isCombatMap)
                         gameObject.GetComponent<ResourceCollectorScript>().ProduceResources();
                     break;
@@ -158,6 +166,7 @@ public class BuildingScript : MonoBehaviour, IDamageableTarget
                 level++;
                 upgradeTimeText.gameObject.SetActive(false);
                 GameManagerScript.Instance.SetWorker(1);
+                ReadDataBuilding();
                 isUpgrading = false;
                 print("upgraded to " + level);
 
@@ -193,25 +202,6 @@ public class BuildingScript : MonoBehaviour, IDamageableTarget
         isBuilding = true;
     }
 
-    public void Build(string name, int category)
-    {
-        timeLeft = buildTime;
-        isBuilding = true;
-
-        switch (category)
-        {
-            case 1:
-                foreach (ArmyBuilding a in DataReader.Instance.armyBuildingList)
-                {
-                    if (a.name.Equals(name) & (a.level == 1))
-                    {
-
-                    }
-                }
-                break;
-        }
-    }
-
     void SetTime(string status)
     {
         minutes = Mathf.Floor(timeLeft / 60).ToString("00");
@@ -221,51 +211,25 @@ public class BuildingScript : MonoBehaviour, IDamageableTarget
         timeLeft -= Time.deltaTime;
     }
 
+    void ReadDataBuilding(){
+        switch(buildingType){
+            case BuildingType.Barrack:
+                //Barrack
+                BuildingBase data = DataReader.Instance.armyProducerBuildingList.Find(obj=>(obj.name=="Barracks" && obj.level==level));
+                buildingBase = ObjectCopier.Clone(data);
+                break;
+        }
+    }
+
     public delegate void DestroyEvent(GameObject g);
     public event DestroyEvent destroyEvt;
 
     public void OnDestroy()
     {
         BuildingManager.Instance.buildingList.Remove(gameObject);
-        BuildingManager.z =0;
+     //   BuildingManager.z =0;
         // trigger for entity destroy
         if (destroyEvt != null) destroyEvt(gameObject);
     }
-
-}
-
-public interface IBaseBuilding
-{
-    int unitType { get; set; }
-    string name { get; set; }
-    int level { get; set; }
-    int hitpoint { get; set; }
-    int buildCost { get; set; }
-    int buildTime { get; set; }
-    int experienceGained { get; set; }
-    int townHallLevelRequired { get; set; }
-    int townHallLevel { get; set; }
-    int numberAvailable { get; set; }
-    int size { get; set; }
-    string description { get; set; }
-}
-
-public interface IArmyBuilding : IBaseBuilding
-{
-    int troopCapacity { get; set; }
-}
-
-public interface IDefenseBuilding : IBaseBuilding
-{
-    int ww { get; set; }
-}
-
-public interface IResourceBuilding : IBaseBuilding
-{
-    int boostCost { get; set; }
-    int capacity { get; set; }
-    int productionRate { get; set; }
-    long timeToFill { get; set; }
-    int catchUpPoint { get; set; }
 
 }
