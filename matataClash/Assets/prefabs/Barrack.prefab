@@ -260,7 +260,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!1 &168696
 GameObject:
   m_ObjectHideFlags: 1
@@ -1551,13 +1551,23 @@ MonoBehaviour:
   isBuilding: 0
   isUpgrading: 0
   resourceNeeded: 50
-  buildingType: 1
   isBuiltBeforeStart: 0
   size: 5
   xPos: 0
   yPos: 0
   maxHitpoint: 100
   curHitpoint: 0
+  buildingType: 1
+  buildingBase:
+    unitType: 0
+    name: 
+    level: 0
+    maxHitpoint: 0
+    buildCost: 0
+    buildTime: 0
+    experienceGained: 0
+    townHallLevelRequired: 0
+    description: 
 --- !u!114 &11489082
 MonoBehaviour:
   m_ObjectHideFlags: 1

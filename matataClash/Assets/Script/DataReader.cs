@@ -181,11 +181,32 @@ public class TownHallBuilding : BuildingBase {
 	/*
 	BELUM
 	*/
+	public List<ResourceBuildingCapacity> resCap;
+	public List<OffensiveBuildingCapacity> offCap;
+	public List<DefensiveBuildingCapacity> defCap;
+
 	public static TownHallBuilding CreateFromJSON(string jsonString){
 		return JsonUtility.FromJson<TownHallBuilding>(jsonString);
 	}
 }
 
+[System.Serializable]
+public class ResourceBuildingCapacity {
+	public string namaFile;
+	public int maxLvl;
+	public int capacity;
+}
 
+[System.Serializable]
+public class OffensiveBuildingCapacity {
+	public string namaFile;
+	public int maxLvl;
+	public int capacity;
+}
 
-
+[System.Serializable]
+public class DefensiveBuildingCapacity {
+	public string namaFile;
+	public int maxLvl;
+	public int capacity;
+}

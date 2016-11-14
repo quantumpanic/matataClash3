@@ -1,7 +1,8 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System;
 
-public class TroopScript : MonoBehaviour, IDamager, IDamageable
+public class TroopScript : MonoBehaviour, IDamager, IDamageable, IFogDisperser
 {
     public float maxHitpoint;
     public float curHitpoint;
@@ -56,6 +57,13 @@ public class TroopScript : MonoBehaviour, IDamager, IDamageable
     public DamageCalculator damageCalculator { get; set; }
     public CombatManager combatManager { get { return CombatManager.Instance; } }
 
+    public FogComponent fogComponent { get; set; }
+
+    void Awake()
+    {
+        fogComponent = FogComponent.AddFogComponent(gameObject);
+    }
+
     // Use this for initialization
     void Start()
     {
@@ -73,7 +81,7 @@ public class TroopScript : MonoBehaviour, IDamager, IDamageable
         TroopsManager.Instance.survivingTroops.Remove(transform.parent.gameObject);
         Destroy(transform.parent.gameObject);
     }
-    
+
     public void Evacuate()
     {
         CancelInvoke("Suicide");

@@ -200,3 +200,42 @@ public class TargetNode : MonoBehaviour, IDamageableTarget
         return node;
     }
 }
+
+public interface IFogDisperser
+{
+    FogComponent fogComponent { get; set; }
+}
+
+public class FogComponent : MonoBehaviour
+{
+    public Transform fogPlane;
+    public int Number;
+
+    public static FogComponent AddFogComponent (GameObject obj)
+    {
+        FogComponent fc = obj.AddComponent<FogComponent>();
+        return fc;
+    }
+
+    void Awake()
+    {
+        fogPlane = GameObject.Find("fog").transform;
+    }
+
+    void Start()
+    {
+        InvokeRepeating("FogUpdate", 0, 0.5f);
+    }
+
+    void FogUpdate()
+    {
+        Vector3 screenPos = Camera.main.WorldToScreenPoint(transform.position);
+        Ray rayToPlayerPos = Camera.main.ScreenPointToRay(screenPos);
+        int layermask = 8;// (int)(1 << 8);
+        RaycastHit hit;
+        if (Physics.Raycast(rayToPlayerPos, out hit, 1000, layermask))
+        {
+            fogPlane.GetComponent<Renderer>().material.SetVector("_Player" + Number.ToString() + "_Pos", hit.point);
+        }
+    }
+}

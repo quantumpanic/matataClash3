@@ -24,7 +24,10 @@ public class RangedTroopScript : TroopScript {
         // check if in range before dealing damage
         if (GetComponent<DetectionPriority>().closestDist < 3f)
         {
-            combatManager.NewDamageEvent(new DamageInstance(this, targetScript));
+			Projectile p = Projectile.Create().Initialize(this);
+			p.CenterToOrigin();
+			p.SetTarget(targetScript);
+            combatManager.NewDamageEvent(new DamageInstance(p, targetScript));
         }
     }
 }

@@ -14,7 +14,8 @@ public class Projectile : ProjectileAbstract
     // Update is called once per frame
     void Update()
     {
-
+        if (currentTarget) transform.LookAt(currentTarget.transform);
+        MoveForward();
     }
 
     public static Projectile Create()
@@ -24,11 +25,13 @@ public class Projectile : ProjectileAbstract
         return projectile;
     }
 
-    public void Initialize(IDamager creator = null)
+    public Projectile Initialize(IDamager creator = null)
     {
         origin = creator;
         if (origin == null) origin = this;
         baseDmg = origin.baseDmg;
+
+        return this;
     }
 
     public void CenterToOrigin()
@@ -36,7 +39,7 @@ public class Projectile : ProjectileAbstract
         gameObject.transform.position = origin.body.transform.position;
     }
 
-    public float travelSpeed;
+    private float travelSpeed;
     public float lifeTime;
     private float timeAlive;
     public float maxDist;
@@ -49,9 +52,12 @@ public class Projectile : ProjectileAbstract
         transform.Translate(Vector3.forward * travelSpeed);
     }
 
-    public void SetTarget(IDamageable target)
-    {
+    private GameObject currentTarget;
 
+    public void SetTarget(IDamageable target, float speed = -1)
+    {
+        currentTarget = target.body;
+        if (!(speed < 0)) travelSpeed = speed;
     }
 }
 
